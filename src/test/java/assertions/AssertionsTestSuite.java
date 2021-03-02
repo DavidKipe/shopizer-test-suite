@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({
+		RegistrationTests.class
 })
 public class AssertionsTestSuite {
 
