@@ -6,15 +6,15 @@ import org.openqa.selenium.WebDriver;
 import pageobject.FooterNavigationPO;
 import pageobject.RegistrationPO;
 
+import static data.InputData.*;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RegistrationTests {
 
-	String firstName = "Mario";
-	String lastName = "Rossi";
-	String country = "India";
-	String stateProvince = "aaa";
-	String email = "email@email.aa";
-	String password = "secretpassword";
+	static final String FIRST_NAME = "Mario";
+	static final String LAST_NAME = "Rossi";
+	static final String COUNTRY = "India";
+	static final String STATE_PROVINCE = "aaa";
 
 	FooterNavigationPO footerNavPO;
 
@@ -31,12 +31,12 @@ public class RegistrationTests {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
 		//registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword(password);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -45,13 +45,13 @@ public class RegistrationTests {
 	public void testRegisterMemberWithEmptyLastName() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
+		registrationPO.setFirstName(FIRST_NAME);
 		//registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword(password);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -60,13 +60,13 @@ public class RegistrationTests {
 	public void testRegisterMemberWithEmptyStateProvince() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
+		registrationPO.setFirstName(FIRST_NAME);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
 		//registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword(password);
+		registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -75,13 +75,13 @@ public class RegistrationTests {
 	public void testRegisterMemberWithEmptyEmail() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		//registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword(password);
+		registrationPO.setFirstName(FIRST_NAME);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		//registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -90,13 +90,13 @@ public class RegistrationTests {
 	public void testRegisterMemberWithEmptyPassword() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		//registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword(password);
+		registrationPO.setFirstName(FIRST_NAME);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		registrationPO.setEmail(EMAIL);
+		//registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -105,13 +105,13 @@ public class RegistrationTests {
 	public void testRegisterMemberWithEmptyRepeatPassword() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		//registrationPO.setRepeatPassword(password);
+		registrationPO.setFirstName(FIRST_NAME);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		//registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -120,13 +120,13 @@ public class RegistrationTests {
 	public void testRegisterWithPasswordMismatch() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword("secretpassworf");
+		registrationPO.setFirstName(FIRST_NAME);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(INCORRECT_PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -135,13 +135,13 @@ public class RegistrationTests {
 	public void testRegisterMemberWithValidData() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword(password);
+		registrationPO.setFirstName(FIRST_NAME);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
@@ -150,13 +150,13 @@ public class RegistrationTests {
 	public void testRegisterDuplicateMember() {
 		RegistrationPO registrationPO = footerNavPO.goToRegister();
 
-		registrationPO.setFirstName(firstName);
-		registrationPO.setLastName(lastName);
-		registrationPO.setCountry(country);
-		registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(email);
-		registrationPO.setPassword(password);
-		registrationPO.setRepeatPassword(password);
+		registrationPO.setFirstName(FIRST_NAME);
+		registrationPO.setLastName(LAST_NAME);
+		registrationPO.setCountry(COUNTRY);
+		registrationPO.setStateProvince(STATE_PROVINCE);
+		registrationPO.setEmail(EMAIL);
+		registrationPO.setPassword(PASSWORD);
+		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 	}
 
