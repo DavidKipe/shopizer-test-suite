@@ -25,10 +25,10 @@ public class StoreItemsPO extends ShopizerPO {
 		return itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
 	}
 
-	public WebDriver clickOnItemWithName(String name) {
+	public StoreItemDetailPO clickOnItemWithName(String name) {
 		WebElement itemLinkElem = driver.findElement(By.xpath(String.format(itemLinkSelectorByName, name)));
 		itemLinkElem.click();
-		return driver;
+		return new StoreItemDetailPO(driver);
 	}
 
 	public void filterItemsByCollection(String collectionName) {

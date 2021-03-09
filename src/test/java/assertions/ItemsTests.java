@@ -43,4 +43,10 @@ public class ItemsTests {
 
 		storeItemsPO.filterItemsByCollection(collectionName);
 	}
+
+		// @AfterEach
+	void afterEach() {
+		footerNavPO.quitDriver();
+	}
+
 }
