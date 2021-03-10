@@ -9,7 +9,7 @@ import org.openqa.selenium.support.How;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StoreItemsPO extends ShopizerPO {
+public class StoreItemsPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//body/div[@id='mainContent']/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/section[1]/div[1]/div/div[2]/a[1]/h3[1]")
 	List<WebElement> itemNamesElemList;

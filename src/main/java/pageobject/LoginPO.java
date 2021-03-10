@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class LoginPO extends ShopizerPO {
+public class LoginPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//input[@id='signin_userName']")
 	WebElement emailInputElem;

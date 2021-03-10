@@ -1,10 +1,14 @@
 package assertions;
 
+import data.InputData;
 import driver.DriverManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pageobject.*;
+
+import static data.InputData.ITEM_NAMES;
+import static data.InputData.ITEM_NAME_1;
 
 public class ShoppingCartTests {
 
@@ -23,9 +27,7 @@ public class ShoppingCartTests {
 	public void testAddOneItemToCart() {
 		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
 
-		String itemName = "Vintage courier bag";
-
-		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(itemName);
+		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 		storeItemDetailPO.clickAddToCart();
 		headerPO.goToCheckout();
 	}
@@ -34,9 +36,7 @@ public class ShoppingCartTests {
 	public void testAddTwoDifferentItemsToCart() {
 		StoreItemsPO storeItemsPO;
 
-		String[] itemNames = {"Vintage courier bag", "Vintage exotik carry bag"};
-
-		for (String itemName : itemNames) {
+		for (String itemName : ITEM_NAMES) {
 			storeItemsPO = footerNavPO.goToHandbags();
 			StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(itemName);
 			storeItemDetailPO.clickAddToCart();
@@ -49,12 +49,10 @@ public class ShoppingCartTests {
 	public void testIncrementQuantityOfAnItemInTheCart() {
 		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
 
-		String itemName = "Vintage courier bag";
-
-		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(itemName);
+		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 		storeItemDetailPO.clickAddToCart();
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
-		shoppingCartPO.setQuantityForItem(itemName, 2);
+		shoppingCartPO.setQuantityForItem(ITEM_NAME_1, 2);
 		shoppingCartPO.clickOnRecalculate();
 	}
 
@@ -62,9 +60,7 @@ public class ShoppingCartTests {
 	public void testRemoveAnItemFromTheCart() {
 		StoreItemsPO storeItemsPO;
 
-		String[] itemNames = {"Vintage courier bag", "Vintage exotik carry bag"};
-
-		for (String itemName : itemNames) {
+		for (String itemName : ITEM_NAMES) {
 			storeItemsPO = footerNavPO.goToHandbags();
 			StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(itemName);
 			storeItemDetailPO.clickAddToCart();

@@ -6,10 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class ShoppingCartPO extends ShopizerPO {
+public class ShoppingCartPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//a[contains(text(),'Recalculate')]")
 	WebElement recalculateBtnElem;
+
+	@FindBy(how = How.XPATH, xpath = "//a[contains(text(),'Proceed to checkout')]")
+	WebElement proceedToCheckoutBtnElem;
 
 	protected final String itemRowSelectorByName = "//tbody/tr/td[1]/div[1]/div[2]/span/strong[text()='%s']/ancestor::tr/";
 	protected final String itemQuantityInputPart = "td[2]/input";
@@ -32,6 +35,11 @@ public class ShoppingCartPO extends ShopizerPO {
 
 	public void clickOnRecalculate() {
 		recalculateBtnElem.click();
+	}
+
+	public CheckoutPO clickProceedToCheckout() {
+		proceedToCheckoutBtnElem.click();
+		return new CheckoutPO(driver);
 	}
 
 }

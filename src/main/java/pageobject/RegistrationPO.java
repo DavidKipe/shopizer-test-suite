@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
 
-public class RegistrationPO extends ShopizerPO {
+public class RegistrationPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//input[@id='firstName']")
 	WebElement firstNameInputElem;
