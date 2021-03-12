@@ -1,13 +1,12 @@
 package assertions;
 
 import driver.DriverManager;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.FooterNavigationPO;
 import pageobject.StoreItemsPO;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemsTests {
 
 	FooterNavigationPO footerNavPO;
@@ -20,6 +19,7 @@ public class ItemsTests {
 	}
 
 	@Test
+	@Order(1)
 	public void testDisplayItems() {
 		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
 
@@ -27,6 +27,7 @@ public class ItemsTests {
 	}
 
 	@Test
+	@Order(2)
 	public void testDisplayDetailsOfAnItem() {
 		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
 
@@ -36,6 +37,7 @@ public class ItemsTests {
 	}
 
 	@Test
+	@Order(3)
 	public void testFilterItemsByCollection() {
 		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
 
@@ -44,7 +46,7 @@ public class ItemsTests {
 		storeItemsPO.filterItemsByCollection(collectionName);
 	}
 
-		// @AfterEach
+	// @AfterEach
 	void afterEach() {
 		footerNavPO.quitDriver();
 	}

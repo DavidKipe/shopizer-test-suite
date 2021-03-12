@@ -24,21 +24,25 @@ public class FooterNavigationPO extends ShopizerPO {
 		super(driver);
 	}
 
-//	void scrollToBottom() {
-//		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
-//	}
-
 	public RegistrationPO goToRegister() {
-		WebDriverWait wait = new WebDriverWait(driver,5);
+		WebDriverWait wait = new WebDriverWait(driver,5); // for the initial page loading
 		wait.until(ExpectedConditions.visibilityOf(registerLinkElem));
-		registerLinkElem.click();
+		try {
+			registerLinkElem.click();
+		} catch(StaleElementReferenceException e) {
+			registerLinkElem.click();
+		}
 		return new RegistrationPO(driver);
 	}
 
 	public LoginPO goToSignIn() {
 		WebDriverWait wait = new WebDriverWait(driver,5);
 		wait.until(ExpectedConditions.visibilityOf(signInLinkElem));
-		signInLinkElem.click();
+		try {
+			signInLinkElem.click();
+		} catch(StaleElementReferenceException e) {
+			signInLinkElem.click();
+		}
 		return new LoginPO(driver);
 	}
 
@@ -48,7 +52,6 @@ public class FooterNavigationPO extends ShopizerPO {
 		try {
 			handbagsLinkElem.click();
 		} catch(StaleElementReferenceException e) {
-			PageFactory.initElements(driver, this);
 			handbagsLinkElem.click();
 		}
 		return new StoreItemsPO(driver);

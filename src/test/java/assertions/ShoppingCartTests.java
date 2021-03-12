@@ -2,14 +2,14 @@ package assertions;
 
 import data.InputData;
 import driver.DriverManager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.*;
 
 import static data.InputData.ITEM_NAMES;
 import static data.InputData.ITEM_NAME_1;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ShoppingCartTests {
 
 	FooterNavigationPO footerNavPO;
@@ -24,6 +24,7 @@ public class ShoppingCartTests {
 	}
 
 	@Test
+	@Order(1)
 	public void testAddOneItemToCart() {
 		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
 
@@ -33,6 +34,7 @@ public class ShoppingCartTests {
 	}
 
 	@Test
+	@Order(2)
 	public void testAddTwoDifferentItemsToCart() {
 		StoreItemsPO storeItemsPO;
 
@@ -46,6 +48,7 @@ public class ShoppingCartTests {
 	}
 
 	@Test
+	@Order(3)
 	public void testIncrementQuantityOfAnItemInTheCart() {
 		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
 
@@ -57,6 +60,7 @@ public class ShoppingCartTests {
 	}
 
 	@Test
+	@Order(4)
 	public void testRemoveAnItemFromTheCart() {
 		StoreItemsPO storeItemsPO;
 

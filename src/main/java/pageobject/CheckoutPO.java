@@ -1,12 +1,10 @@
 package pageobject;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -43,8 +41,32 @@ public class CheckoutPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//input[@id='shipToDeliveryAddress']")
 	WebElement shipToADifferentAddressCheckInputElem;
 
+	@FindBy(how = How.XPATH, xpath = "//input[@name='customer.delivery.firstName']")
+	WebElement shippingFirstNameInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//input[@name='customer.delivery.lastName']")
+	WebElement shippingLastNameInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//input[@id='customer.delivery.address']")
+	WebElement shippingAddressInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//input[@id='customer.delivery.city']")
+	WebElement shippingCityInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//select[@id='customer.delivery.country']")
+	WebElement shippingCountryInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//select[@id='deliveryStateList']")
+	WebElement shippingStateProvinceInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//input[@id='deliveryPostalCode']")
+	WebElement shippingPostalCodeInputElem;
+
 	@FindBy(how = How.XPATH, xpath = "//input[@id='cbox']")
 	WebElement createAnAccountCheckInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//input[@id='storePickUp_QC']")
+	WebElement storePickUpRadioInputElem;
 
 
 	public CheckoutPO(WebDriver driver) {
@@ -96,23 +118,36 @@ public class CheckoutPO extends FooterNavigationPO {
 		billingPhoneNumberInputElem.sendKeys(phoneNumber);
 	}
 
-	public void setStorePickup() {
-		By byXpathStorePickup = By.xpath("//input[@id='storePickUp_QC']");
-		try {
-			WebElement storePickupRadioInputElem = driver.findElement(byXpathStorePickup);
-			storePickupRadioInputElem.click();
-		} catch (StaleElementReferenceException e) {
-			PageFactory.initElements(driver, this);
-			WebElement storePickupRadioInputElem = driver.findElement(byXpathStorePickup);
-			storePickupRadioInputElem.click();
-
-		}
+	public void setStorePickUp() {
+		// Since the store pick up radio button appears after giving value to postal code input
+		// StaleElementReference exception is thrown if not properly waiting for the element
+		// Selenium waits do not seem wotk correctly here, so I forced waiting with Thread.sleep
+		// and retried every tot milliseconds
+		int maxAttempts = 100;
+		int millisecondsWait = 20;
+		StaleElementReferenceException staleElementRefExc = new StaleElementReferenceException("null");
+		int i;
+		for (i = 0; i < maxAttempts; i++)
+			try {
+				storePickUpRadioInputElem.click();
+				break;
+			} catch (StaleElementReferenceException e) {
+				System.out.println("Stale exception!!! " + i);
+				staleElementRefExc = e;
+				try {
+					Thread.sleep(millisecondsWait);
+				} catch (InterruptedException interruptedException) {
+					interruptedException.printStackTrace();
+				}
+			}
+		if (i == maxAttempts)
+			throw staleElementRefExc;
 	}
 
 	public void clickOnCheckShipToADifferentAddress() {
 		shipToADifferentAddressCheckInputElem.click();
 		WebDriverWait wait = new WebDriverWait(driver, 5);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='deliveryPostalCode']")));
+		wait.until(ExpectedConditions.visibilityOf(shippingPostalCodeInputElem)); // wait for the new form to appear
 	}
 
 	public void clickOnCreateAnAccount() {
@@ -120,43 +155,36 @@ public class CheckoutPO extends FooterNavigationPO {
 	}
 
 	public void setShippingFirstName(String firstName) {
-		WebElement shippingFirstNameInputElem = driver.findElement(By.xpath("//body/div[5]/div[1]/div[1]/form[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/input[1]"));
 		shippingFirstNameInputElem.clear();
 		shippingFirstNameInputElem.sendKeys(firstName);
 	}
 
 	public void setShippingLastName(String lastName) {
-		WebElement shippingLastNameInputElem = driver.findElement(By.xpath("//body/div[5]/div[1]/div[1]/form[1]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/input[1]"));
 		shippingLastNameInputElem.clear();
 		shippingLastNameInputElem.sendKeys(lastName);
 	}
 
 	public void setShippingAddress(String address) {
-		WebElement shippingAddressInputElem = driver.findElement(By.xpath("//input[@id='customer.delivery.address']"));
 		shippingAddressInputElem.clear();
 		shippingAddressInputElem.sendKeys(address);
 	}
 
 	public void setShippingCity(String city) {
-		WebElement shippingCityInputElem = driver.findElement(By.xpath("//input[@id='customer.delivery.city']"));
 		shippingCityInputElem.clear();
 		shippingCityInputElem.sendKeys(city);
 	}
 
 	public void setShippingCountry(String country) {
-		WebElement shippingCountryInputElem = driver.findElement(By.xpath("//select[@id='customer.delivery.country']"));
 		Select countrySelect = new Select(shippingCountryInputElem);
 		countrySelect.selectByVisibleText(country);
 	}
 
 	public void setShippingStateProvince(String stateProvince) {
-		WebElement shippingStateProvinceInputElem = driver.findElement(By.xpath("//select[@id='deliveryStateList']"));
 		Select stateProvinceSelect = new Select(shippingStateProvinceInputElem);
 		stateProvinceSelect.selectByVisibleText(stateProvince);
 	}
 
 	public void setShippingPostalCode(String postalCode) {
-		WebElement shippingPostalCodeInputElem = driver.findElement(By.xpath("//input[@id='deliveryPostalCode']"));
 		shippingPostalCodeInputElem.clear();
 		shippingPostalCodeInputElem.sendKeys(postalCode);
 	}
