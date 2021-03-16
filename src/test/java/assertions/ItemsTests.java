@@ -3,25 +3,25 @@ package assertions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-import pageobject.FooterNavigationPO;
+import pageobject.HomePO;
 import pageobject.StoreItemsPO;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemsTests {
 
-	FooterNavigationPO footerNavPO;
+	HomePO homePO;
 
 	@BeforeEach
 	public void beforeEach() {
 		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
-		footerNavPO = new FooterNavigationPO(driver);
+		homePO = new HomePO(driver);
 	}
 
 	@Test
 	@Order(1)
 	public void testDisplayItems() {
-		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
+		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		Assertions.assertEquals(6, storeItemsPO.getItemNamesList().size());
 	}
@@ -29,7 +29,7 @@ public class ItemsTests {
 	@Test
 	@Order(2)
 	public void testDisplayDetailsOfAnItem() {
-		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
+		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		String itemName = "Vintage courier bag";
 
@@ -39,7 +39,7 @@ public class ItemsTests {
 	@Test
 	@Order(3)
 	public void testFilterItemsByCollection() {
-		StoreItemsPO storeItemsPO = footerNavPO.goToHandbags();
+		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		String collectionName = "Vintage";
 
@@ -48,7 +48,7 @@ public class ItemsTests {
 
 	// @AfterEach
 	void afterEach() {
-		footerNavPO.quitDriver();
+		homePO.quitDriver();
 	}
 
 }

@@ -30,9 +30,9 @@ public class LoginPO extends FooterNavigationPO {
 		passwordInputElem.sendKeys(password);
 	}
 
-	public WebDriver login() {
+	public MyAccountPO login() {
 		signInBtnElem.click();
-		return driver;
+		return new MyAccountPO(driver);
 	}
 
 }

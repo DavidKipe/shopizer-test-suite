@@ -11,7 +11,9 @@ import org.junit.runner.RunWith;
 		LoginTests.class,
 		ItemsTests.class,
 		ShoppingCartTests.class,
-		CheckoutTests.class
+		CheckoutTests.class,
+		SubmitOrderTests.class,
+		AccountManagementTests.class
 })
 public class AssertionsTestSuite {
 

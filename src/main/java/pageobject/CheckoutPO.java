@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CheckoutPO extends FooterNavigationPO {
 
@@ -68,6 +67,8 @@ public class CheckoutPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//input[@id='storePickUp_QC']")
 	WebElement storePickUpRadioInputElem;
 
+	@FindBy(how = How.XPATH, xpath = "//button[@id='submitOrder']")
+	WebElement submitOrderBtnElem;
 
 	public CheckoutPO(WebDriver driver) {
 		super(driver);
@@ -146,7 +147,6 @@ public class CheckoutPO extends FooterNavigationPO {
 
 	public void clickOnCheckShipToADifferentAddress() {
 		shipToADifferentAddressCheckInputElem.click();
-		WebDriverWait wait = new WebDriverWait(driver, 5);
 		wait.until(ExpectedConditions.visibilityOf(shippingPostalCodeInputElem)); // wait for the new form to appear
 	}
 
@@ -187,6 +187,11 @@ public class CheckoutPO extends FooterNavigationPO {
 	public void setShippingPostalCode(String postalCode) {
 		shippingPostalCodeInputElem.clear();
 		shippingPostalCodeInputElem.sendKeys(postalCode);
+	}
+
+	public WebDriver clickSubmitOrder() {
+		submitOrderBtnElem.click();
+		return driver;
 	}
 
 }
