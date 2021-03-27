@@ -1,6 +1,9 @@
 package data;
 
-// This class helps sharing data among test classes
+import pageobject.RateItemPO;
+
+// All input data for test cases is stored in this class
+// This class also helps sharing data among test classes
 public class InputData {
 
 	public static final String FIRST_NAME = "Mario";
@@ -41,5 +44,8 @@ public class InputData {
 	public static final String ITEM_NAME_1 = "Vintage courier bag";
 	public static final String ITEM_NAME_2 = "Vintage exotik carry bag";
 	public static final String[] ITEM_NAMES = {ITEM_NAME_1, ITEM_NAME_2};
+
+	public static final String REVIEW_OPINION = "My test review opinion";
+	public static final RateItemPO.RatingStars REVIEW_RATING_STARS = RateItemPO.RatingStars.THREE_AND_A_HALF;
 
 }

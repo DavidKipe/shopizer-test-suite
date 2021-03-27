@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 		ShoppingCartTests.class,
 		CheckoutTests.class,
 		SubmitOrderTests.class,
+		ItemReviewTests.class,
 		AccountManagementTests.class
 })
 public class AssertionsTestSuite {

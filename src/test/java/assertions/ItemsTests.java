@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import pageobject.HomePO;
 import pageobject.StoreItemsPO;
 
+import java.util.List;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemsTests {
 
@@ -44,6 +46,48 @@ public class ItemsTests {
 		String collectionName = "Vintage";
 
 		storeItemsPO.filterItemsByCollection(collectionName);
+	}
+
+	@Test
+	@Order(4)
+	public void testSortItemsByName() {
+		StoreItemsPO storeItemsPO = homePO.goToHandbags();
+
+		storeItemsPO.sortByName();
+		List<String> itemNamesList = storeItemsPO.getItemNamesList();
+
+		boolean sorted = true;
+		String previous = ""; // empty string: guaranteed to be less than or equal to any other
+		for (final String current: itemNamesList) {
+		    if (current.compareTo(previous) < 0) {
+			    sorted = false;
+			    break;
+		    }
+		    previous = current;
+		}
+
+		Assertions.assertTrue(sorted);
+	}
+
+	@Test
+	@Order(5)
+	public void testSortItemsByPrice() {
+		StoreItemsPO storeItemsPO = homePO.goToHandbags();
+
+		storeItemsPO.sortByPrice();
+		List<Float> itemPricesList = storeItemsPO.getItemPricesList();
+
+		boolean sorted = true;
+		float previous = 0.0F;
+		for (final float current: itemPricesList) {
+		    if (current < previous) {
+			    sorted = false;
+			    break;
+		    }
+		    previous = current;
+		}
+
+		Assertions.assertTrue(sorted);
 	}
 
 	// @AfterEach
