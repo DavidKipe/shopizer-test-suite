@@ -32,6 +32,9 @@ public class RegistrationPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//button[contains(text(),'Create an account')]")
 	WebElement createAccountBtnElem;
 
+	@FindBy(how = How.XPATH, xpath = "//div[@id='customer.errors']")
+	WebElement customerErrorsDivElem;
+
 	public RegistrationPO(WebDriver driver) {
 		super(driver);
 	}
@@ -71,9 +74,13 @@ public class RegistrationPO extends FooterNavigationPO {
 		repeatPasswordInputElem.sendKeys(password);
 	}
 
-	public WebDriver createAccount() {
+	public MyAccountPO createAccount() {
 		createAccountBtnElem.click();
-		return driver;
+		return new MyAccountPO(driver);
+	}
+
+	public String getCustomerErrors() {
+		return customerErrorsDivElem.getText();
 	}
 
 }

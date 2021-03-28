@@ -3,7 +3,10 @@ package assertions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-import pageobject.*;
+import pageobject.ChangePasswordPO;
+import pageobject.EditAddressPO;
+import pageobject.HomePO;
+import pageobject.LoginPO;
 
 import static data.InputData.*;
 

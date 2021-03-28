@@ -4,9 +4,15 @@ import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.HomePO;
+import pageobject.StoreItemDetailPO;
 import pageobject.StoreItemsPO;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static data.ExpectedData.*;
+import static data.InputData.ITEM_NAME_1;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemsTests {
@@ -33,9 +39,10 @@ public class ItemsTests {
 	public void testDisplayDetailsOfAnItem() {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
-		String itemName = "Vintage courier bag";
+		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 
-		storeItemsPO.clickOnItemWithName(itemName);
+		Assertions.assertEquals(ITEM_NAME_1, storeItemDetailPO.getItemTitleName());
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE_STR, storeItemDetailPO.getItemPrice());
 	}
 
 	@Test
@@ -43,9 +50,12 @@ public class ItemsTests {
 	public void testFilterItemsByCollection() {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
-		String collectionName = "Vintage";
+		storeItemsPO.filterItemsByCollection(ITEMS_COLLECTION_NAME_1);
+		List<String> itemNamesList = storeItemsPO.getItemNamesList();
+		Collections.sort(itemNamesList);
 
-		storeItemsPO.filterItemsByCollection(collectionName);
+		Assertions.assertEquals(ITEMS_COLLECTION_NAME_1_DISPLAYED_NAMES.length, itemNamesList.size());
+		Assertions.assertEquals(Arrays.asList(ITEMS_COLLECTION_NAME_1_DISPLAYED_NAMES), itemNamesList);
 	}
 
 	@Test

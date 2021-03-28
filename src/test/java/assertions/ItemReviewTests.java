@@ -2,7 +2,6 @@ package assertions;
 
 import data.InputData;
 import driver.DriverManager;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

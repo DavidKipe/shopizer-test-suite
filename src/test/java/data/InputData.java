@@ -11,6 +11,7 @@ public class InputData {
 	public static final String COUNTRY = "India";
 	public static final String STATE_PROVINCE = "aaa";
 	public static final String EMAIL = "email@registration.aa";
+	public static final String EMAIL_2 = "email2@registration.aa";
 	public static final String PASSWORD = "secretpassword";
 
 	public static final String INCORRECT_EMAIL = "email@email.ab";

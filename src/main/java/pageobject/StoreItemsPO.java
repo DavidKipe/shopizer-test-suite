@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class StoreItemsPO extends FooterNavigationPO {
 	}
 
 	public List<String> getItemNamesList() {
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//body/div[@id='mainContent']/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/section[1]/div[1]/div[1]/div[2]/div[2]/div[1]/a[1]")));
 		return itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
 	}
 

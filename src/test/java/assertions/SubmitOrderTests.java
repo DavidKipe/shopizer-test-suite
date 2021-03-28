@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import pageobject.*;
 
 import static data.InputData.*;
-import static data.InputData.BILLING_PHONE_NUMBER;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SubmitOrderTests {

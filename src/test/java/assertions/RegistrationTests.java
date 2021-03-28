@@ -3,21 +3,25 @@ package assertions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import pageobject.HeaderPO;
 import pageobject.HomePO;
 import pageobject.RegistrationPO;
 
+import static data.ExpectedData.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RegistrationTests {
 
 	HomePO homePO;
+	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
 		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 		homePO = new HomePO(driver);
+		headerPO = new HeaderPO(driver);
 	}
 
 	@Test
@@ -33,6 +37,8 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
@@ -48,22 +54,27 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
-	@Test
-	@Order(3)
-	public void testRegisterMemberWithEmptyStateProvince() {
-		RegistrationPO registrationPO = homePO.goToRegister();
-
-		registrationPO.setFirstName(FIRST_NAME);
-		registrationPO.setLastName(LAST_NAME);
-		registrationPO.setCountry(COUNTRY);
-		//registrationPO.setStateProvince(stateProvince);
-		registrationPO.setEmail(EMAIL);
-		registrationPO.setPassword(PASSWORD);
-		registrationPO.setRepeatPassword(PASSWORD);
-		registrationPO.createAccount();
-	}
+	// This test is to be removed
+//	@Test
+//	@Order(3)
+//	public void testRegisterMemberWithEmptyStateProvince() {
+//		RegistrationPO registrationPO = homePO.goToRegister();
+//
+//		registrationPO.setFirstName(FIRST_NAME);
+//		registrationPO.setLastName(LAST_NAME);
+//		registrationPO.setCountry(COUNTRY);
+//		//registrationPO.setStateProvince(stateProvince);
+//		registrationPO.setEmail(EMAIL);
+//		registrationPO.setPassword(PASSWORD);
+//		registrationPO.setRepeatPassword(PASSWORD);
+//		registrationPO.createAccount();
+//
+//		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
+//	}
 
 	@Test
 	@Order(4)
@@ -78,6 +89,8 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
@@ -93,6 +106,8 @@ public class RegistrationTests {
 		//registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
@@ -104,10 +119,12 @@ public class RegistrationTests {
 		registrationPO.setLastName(LAST_NAME);
 		registrationPO.setCountry(COUNTRY);
 		registrationPO.setStateProvince(STATE_PROVINCE);
-		registrationPO.setEmail(EMAIL);
+		registrationPO.setEmail(EMAIL_2);
 		registrationPO.setPassword(PASSWORD);
 		//registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
@@ -123,12 +140,16 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(INCORRECT_PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(REGISTRATION_BOTH_PASSWORD_MUST_MATCH, registrationPO.getCustomerErrors());
 	}
 
 	@Test
 	@Order(8)
 	public void testRegisterMemberWithValidData() {
 		RegistrationPO registrationPO = homePO.goToRegister();
+
+		registrationPO.dismissCookieMessageIfPresent();
 
 		registrationPO.setFirstName(FIRST_NAME);
 		registrationPO.setLastName(LAST_NAME);
@@ -138,6 +159,8 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(FIRST_NAME, headerPO.getWelcomeName());
 	}
 
 	@Test
@@ -153,6 +176,8 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		Assertions.assertEquals(REGISTRATION_USER_NAME_ALREADY_EXISTS, registrationPO.getCustomerErrors());
 	}
 
 	// @AfterEach

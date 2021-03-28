@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPO extends FooterNavigationPO {
 
@@ -15,6 +16,9 @@ public class LoginPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//button[@id='genericLogin-button']")
 	WebElement signInBtnElem;
+
+	@FindBy(how = How.XPATH, xpath = "//div[@id='loginError']")
+	WebElement loginErrorDivElem;
 
 	public LoginPO(WebDriver driver) {
 		super(driver);
@@ -33,6 +37,11 @@ public class LoginPO extends FooterNavigationPO {
 	public MyAccountPO login() {
 		signInBtnElem.click();
 		return new MyAccountPO(driver);
+	}
+
+	public String getLoginError() {
+		wait.until(ExpectedConditions.visibilityOf(loginErrorDivElem));
+		return loginErrorDivElem.getText();
 	}
 
 }

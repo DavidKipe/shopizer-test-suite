@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderPO extends ShopizerPO {
 
@@ -12,6 +13,9 @@ public class HeaderPO extends ShopizerPO {
 
 	@FindBy(how = How.XPATH, xpath = "//body/nav[1]/div[1]/ul[2]/li[3]/ul[1]/span[1]/li[2]/div[1]/a[2]")
 	WebElement checkoutBtnElem;
+
+	@FindBy(how = How.XPATH, xpath = "//body/nav[1]/div[1]/ul[2]/li[2]/a[1]/span[1]/span[1]")
+	WebElement welcomeNameSpanElem;
 
 	public HeaderPO(WebDriver driver) {
 		super(driver);
@@ -23,6 +27,11 @@ public class HeaderPO extends ShopizerPO {
 		checkoutBtnElem.click();
 
 		return new ShoppingCartPO(driver);
+	}
+
+	public String getWelcomeName() {
+		wait.until(ExpectedConditions.visibilityOf(welcomeNameSpanElem));
+		return welcomeNameSpanElem.getText();
 	}
 
 }
