@@ -26,6 +26,9 @@ public class CheckoutPO extends FooterNavigationPO {
 	WebElement billingCountryInputElem;
 
 	@FindBy(how = How.XPATH, xpath = "//select[@id='billingStateList']")
+	WebElement billingStateProvinceSelectInputElem;
+
+	@FindBy(how = How.XPATH, xpath = "//input[@id='billingStateProvince']")
 	WebElement billingStateProvinceInputElem;
 
 	@FindBy(how = How.XPATH, xpath = "//input[@id='billingPostalCode']")
@@ -70,6 +73,12 @@ public class CheckoutPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//button[@id='submitOrder']")
 	WebElement submitOrderBtnElem;
 
+	@FindBy(how = How.XPATH, xpath = "//div[@id='formErrorMessage']/strong[1]")
+	WebElement formMessageElem;
+
+	@FindBy(how = How.XPATH, xpath = "//body[1]/div[5]/div[1]/div[1]/form[1]/div[2]/div[1]/div[1]/table[1]/tfoot[1]/tr[3]/td[1]/strong[1]/span[1]")
+	WebElement totalPriceElem;
+
 	public CheckoutPO(WebDriver driver) {
 		super(driver);
 	}
@@ -99,9 +108,9 @@ public class CheckoutPO extends FooterNavigationPO {
 		countrySelect.selectByVisibleText(country);
 	}
 
-	public void setBillingStateProvince(String stateProvince) {
-		Select stateProvinceSelect = new Select(billingStateProvinceInputElem);
-		stateProvinceSelect.selectByVisibleText(stateProvince);
+	public void setBillingStateProvinceSelect(String stateProvinceVisibleText) {
+		Select stateProvinceSelect = new Select(billingStateProvinceSelectInputElem);
+		stateProvinceSelect.selectByVisibleText(stateProvinceVisibleText);
 	}
 
 	public void setBillingPostalCode(String postalCode) {
@@ -119,6 +128,27 @@ public class CheckoutPO extends FooterNavigationPO {
 		billingPhoneNumberInputElem.sendKeys(phoneNumber);
 	}
 
+	public String getBillingFirstName() {
+		return billingFirstNameInputElem.getAttribute("value");
+	}
+
+	public String getBillingLastName() {
+		return billingLastNameInputElem.getAttribute("value");
+	}
+
+	public String getBillingCountry() {
+		Select countrySelect = new Select(billingCountryInputElem);
+		return countrySelect.getFirstSelectedOption().getText();
+	}
+
+	public String getBillingStateProvince() {
+		return billingStateProvinceInputElem.getAttribute("value");
+	}
+
+	public String getBillingEmail() {
+		return billingEmailInputElem.getAttribute("value");
+	}
+
 	public void setStorePickUp() {
 		// Since the store pick up radio button appears after giving value to postal code input
 		// StaleElementReference exception is thrown if not properly waiting for the element
@@ -133,7 +163,7 @@ public class CheckoutPO extends FooterNavigationPO {
 				storePickUpRadioInputElem.click();
 				break;
 			} catch (StaleElementReferenceException e) {
-				System.out.println("Stale exception!!! " + i);
+				//System.out.println("Stale exception!!! " + i);
 				staleElementRefExc = e;
 				try {
 					Thread.sleep(millisecondsWait);
@@ -192,6 +222,23 @@ public class CheckoutPO extends FooterNavigationPO {
 	public WebDriver clickSubmitOrder() {
 		submitOrderBtnElem.click();
 		return driver;
+	}
+
+	public String getFormMessage() {
+		return formMessageElem.getText();
+	}
+
+	public double getTotalPrice() {
+		try { // This try-catch is needed because this element may be refreshed by clicking the radio button "store pick up"
+			wait.until(ExpectedConditions.visibilityOf(totalPriceElem));
+		} catch (StaleElementReferenceException e) {
+			wait.until(ExpectedConditions.visibilityOf(totalPriceElem));
+		}
+		return Double.parseDouble(totalPriceElem.getText().substring(1));
+	}
+
+	public boolean isSubmitOrderButtonEnable() {
+		return submitOrderBtnElem.isEnabled();
 	}
 
 }

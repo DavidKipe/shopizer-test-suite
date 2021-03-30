@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.*;
 
+import static data.ExpectedData.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -36,10 +37,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE + CHECKOUT_SHIPPING_PRICE, checkoutPO.getTotalPrice());
+		Assertions.assertEquals(CHECKOUT_MESSAGE_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
@@ -57,16 +61,19 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.setStorePickUp();
+
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE, checkoutPO.getTotalPrice());
+		Assertions.assertEquals(CHECKOUT_MESSAGE_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
 	@Order(3)
-	public void testCheckoutOrderDifferentShippingAddress() {
+	public void testCheckoutOrderDifferentShippingAddress() throws InterruptedException {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -79,7 +86,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
@@ -93,6 +100,10 @@ public class CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
+
+		Thread.sleep(500);
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE + CHECKOUT_SHIPPING_PRICE_DIFFERENT_ADDRESS, checkoutPO.getTotalPrice());
+		Assertions.assertEquals(CHECKOUT_MESSAGE_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
@@ -110,10 +121,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_FIRST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -131,10 +145,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_LAST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -152,10 +169,13 @@ public class CheckoutTests {
 		//checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_STREET_ADDRESS_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -173,10 +193,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		//checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_CITY_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -194,10 +217,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		//checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_POSTAL_CODE_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -215,10 +241,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		//checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_EMAIL_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -236,10 +265,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		//checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_PHONE_NUMBER_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -257,7 +289,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
@@ -271,6 +303,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
+
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_FIRST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -288,7 +323,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
@@ -302,6 +337,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
+
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_LAST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -319,7 +357,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
@@ -333,6 +371,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
+
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_STREET_ADDRESS_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -350,7 +391,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
@@ -364,6 +405,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
+
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_CITY_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -381,7 +425,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
@@ -395,6 +439,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		//checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
+
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_POSTAL_CODE_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
@@ -406,13 +453,19 @@ public class CheckoutTests {
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
 
-		// raises StaleElementReferenceException if not calling PageFactory.initElements, we're using an element after its refresh (successfully login makes a page refresh)
+		// raises StaleElementReferenceException if not managed, we're using an element after its refresh (successfully login makes a page refresh)
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 		storeItemDetailPO.clickAddToCart();
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
-		shoppingCartPO.clickProceedToCheckout();
+		CheckoutPO checkoutPO = shoppingCartPO.clickProceedToCheckout();
+
+		Assertions.assertEquals(FIRST_NAME, checkoutPO.getBillingFirstName());
+		Assertions.assertEquals(LAST_NAME, checkoutPO.getBillingLastName());
+		Assertions.assertEquals(COUNTRY, checkoutPO.getBillingCountry());
+		Assertions.assertEquals(STATE_PROVINCE, checkoutPO.getBillingStateProvince());
+		Assertions.assertEquals(EMAIL, checkoutPO.getBillingEmail());
 	}
 
 	@Test
@@ -430,11 +483,14 @@ public class CheckoutTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickOnCreateAnAccount();
+
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_PASSWORD_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	// @AfterEach

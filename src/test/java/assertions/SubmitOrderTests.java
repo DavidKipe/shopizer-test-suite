@@ -36,7 +36,7 @@ public class SubmitOrderTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
@@ -58,7 +58,7 @@ public class SubmitOrderTests {
 		checkoutPO.setBillingAddress(BILLING_ADDRESS);
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
-		checkoutPO.setBillingStateProvince(BILLING_STATE_PROVINCE);
+		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
