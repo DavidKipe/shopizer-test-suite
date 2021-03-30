@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ShoppingCartPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//a[contains(text(),'Recalculate')]")
@@ -17,6 +20,18 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	protected final String itemRowSelectorByName = "//tbody/tr/td[1]/div[1]/div[2]/span/strong[text()='%s']/ancestor::tr/";
 	protected final String itemQuantityInputPart = "td[2]/input";
 	protected final String removeItemPart = "td[5]//a";
+
+	@FindBy(how = How.XPATH, xpath = "//tbody/tr/td[1]/div[1]/div[2]/span[1]/strong[1]")
+	List<WebElement> itemNamesElemList;
+
+	@FindBy(how = How.XPATH, xpath = "//body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr/td[3]/strong[1]")
+	List<WebElement> itemPricesElemList;
+
+	@FindBy(how = How.XPATH, xpath = "//body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr/td[4]/strong[1]")
+	List<WebElement> itemTotalPartialPricesElemList;
+
+	@FindBy(how = How.XPATH, xpath = "//tbody/tr[2]/td[1]/span[1]")
+	WebElement totalPriceSpanElem;
 
 	public ShoppingCartPO(WebDriver driver) {
 		super(driver);
@@ -40,6 +55,30 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	public CheckoutPO clickProceedToCheckout() {
 		proceedToCheckoutBtnElem.click();
 		return new CheckoutPO(driver);
+	}
+
+	public List<String> getItemNamesList() {
+		return itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
+	}
+
+	public List<String> getItemPricesStringList() {
+		return itemPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
+	}
+
+	public List<Double> getItemPricesList() {
+		return itemPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList());
+	}
+
+	public List<String> getItemTotalPartialPricesStringList() {
+		return itemTotalPartialPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
+	}
+
+	public List<Double> getItemTotalPartialPricesList() {
+		return itemTotalPartialPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList());
+	}
+
+	public double getTotalPrice() {
+		return Double.parseDouble(totalPriceSpanElem.getText().substring(1));
 	}
 
 }

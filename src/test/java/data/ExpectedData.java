@@ -9,6 +9,11 @@ public class ExpectedData {
 	public static final String LOGIN_ERR_FAILED = "Login Failed. Username or Password is incorrect.";
 
 	public static final String ITEMS_ITEM_1_PRICE_STR = "$60.00";
+
+	public static final double ITEMS_ITEM_1_PRICE = 60.0;
+	public static final double ITEMS_ITEM_2_PRICE = 62.0;
+	public static final double[] ITEMS_PRICES = {ITEMS_ITEM_1_PRICE, ITEMS_ITEM_2_PRICE};
+
 	public static final String ITEMS_COLLECTION_NAME_1 = "Vintage";
 	public static final String[] ITEMS_COLLECTION_NAME_1_DISPLAYED_NAMES = {"Multi Use Hand Bag", "Vintage Bag", "Vintage Exotik Carry Bag"};
 

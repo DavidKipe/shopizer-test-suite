@@ -5,6 +5,10 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
+import static data.ExpectedData.*;
 import static data.InputData.ITEM_NAMES;
 import static data.InputData.ITEM_NAME_1;
 
@@ -29,7 +33,11 @@ public class ShoppingCartTests {
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 		storeItemDetailPO.clickAddToCart();
-		headerPO.goToCheckout();
+		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
+
+		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE_STR, shoppingCartPO.getItemPricesStringList().get(0));
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE, shoppingCartPO.getTotalPrice());
 	}
 
 	@Test
@@ -43,7 +51,14 @@ public class ShoppingCartTests {
 			storeItemDetailPO.clickAddToCart();
 		}
 
-		headerPO.goToCheckout();
+		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
+
+		HashSet<String> itemNamesSet = new HashSet<>(shoppingCartPO.getItemNamesList());
+		for (String itemName : ITEM_NAMES)
+			if (!itemNamesSet.contains(itemName))
+				Assertions.fail("Items '" + itemName + "' is not listed in the Shopping Cart");
+
+		Assertions.assertEquals(Arrays.stream(ITEMS_PRICES).reduce(0.0, Double::sum), shoppingCartPO.getTotalPrice());
 	}
 
 	@Test
@@ -56,6 +71,10 @@ public class ShoppingCartTests {
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.setQuantityForItem(ITEM_NAME_1, 2);
 		shoppingCartPO.clickOnRecalculate();
+
+		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE * 2, shoppingCartPO.getItemTotalPartialPricesList().get(0));
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE * 2, shoppingCartPO.getTotalPrice());
 	}
 
 	@Test
@@ -71,6 +90,10 @@ public class ShoppingCartTests {
 
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.removeItem("Vintage exotik carry bag");
+
+		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
+		Assertions.assertEquals(1, shoppingCartPO.getItemNamesList().size());
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE, shoppingCartPO.getTotalPrice());
 	}
 
 	// @AfterEach

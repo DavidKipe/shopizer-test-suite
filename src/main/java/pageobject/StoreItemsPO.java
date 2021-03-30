@@ -34,8 +34,8 @@ public class StoreItemsPO extends FooterNavigationPO {
 		return itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
 	}
 
-	public List<Float> getItemPricesList() {
-		return itemPricesElemList.stream().map(itemPriceElem -> Float.parseFloat(itemPriceElem.getText().substring(1))).collect(Collectors.toList());
+	public List<Double> getItemPricesList() {
+		return itemPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList());
 	}
 
 	public StoreItemDetailPO clickOnItemWithName(String name) {

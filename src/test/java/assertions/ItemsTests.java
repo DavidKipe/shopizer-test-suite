@@ -85,11 +85,11 @@ public class ItemsTests {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		storeItemsPO.sortByPrice();
-		List<Float> itemPricesList = storeItemsPO.getItemPricesList();
+		List<Double> itemPricesList = storeItemsPO.getItemPricesList();
 
 		boolean sorted = true;
-		float previous = 0.0F;
-		for (final float current: itemPricesList) {
+		double previous = 0.0;
+		for (final double current: itemPricesList) {
 		    if (current < previous) {
 			    sorted = false;
 			    break;
