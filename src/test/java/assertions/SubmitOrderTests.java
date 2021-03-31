@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.*;
 
+import static data.ExpectedData.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -40,7 +41,10 @@ public class SubmitOrderTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-		checkoutPO.clickSubmitOrder();
+		OrderConfirmationPO orderConfirmationPO = checkoutPO.clickSubmitOrder();
+
+		Assertions.assertEquals(ORDER_CONFIRMATION_TITLE_OK, orderConfirmationPO.getConfirmationTitle());
+		Assertions.assertTrue(orderConfirmationPO.getOrderIdMessage().matches(ORDER_CONFIRMATION_MSG_ID_REGEX));
 	}
 
 	@Test
@@ -60,9 +64,11 @@ public class SubmitOrderTests {
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
-		checkoutPO.setBillingEmail(EMAIL);
+		checkoutPO.setBillingEmail(EMAIL); // this is the registration email, it is already used
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
+
+		Assertions.assertEquals(CHECKOUT_ERROR_GENERIC, checkoutPO.getCheckoutError());
 	}
 
 	@Test
@@ -85,7 +91,10 @@ public class SubmitOrderTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-		checkoutPO.clickSubmitOrder();
+		OrderConfirmationPO orderConfirmationPO = checkoutPO.clickSubmitOrder();
+
+		Assertions.assertEquals(ORDER_CONFIRMATION_TITLE_OK, orderConfirmationPO.getConfirmationTitle());
+		Assertions.assertTrue(orderConfirmationPO.getOrderIdMessage().matches(ORDER_CONFIRMATION_MSG_ID_REGEX));
 	}
 
 	// @AfterEach

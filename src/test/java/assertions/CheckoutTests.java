@@ -43,7 +43,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE + CHECKOUT_SHIPPING_PRICE, checkoutPO.getTotalPrice());
-		Assertions.assertEquals(CHECKOUT_MESSAGE_FORM_OK, checkoutPO.getFormMessage());
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class CheckoutTests {
 		checkoutPO.setStorePickUp();
 
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE, checkoutPO.getTotalPrice());
-		Assertions.assertEquals(CHECKOUT_MESSAGE_FORM_OK, checkoutPO.getFormMessage());
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class CheckoutTests {
 
 		Thread.sleep(500);
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE + CHECKOUT_SHIPPING_PRICE_DIFFERENT_ADDRESS, checkoutPO.getTotalPrice());
-		Assertions.assertEquals(CHECKOUT_MESSAGE_FORM_OK, checkoutPO.getFormMessage());
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test

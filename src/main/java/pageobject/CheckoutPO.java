@@ -79,6 +79,9 @@ public class CheckoutPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//body[1]/div[5]/div[1]/div[1]/form[1]/div[2]/div[1]/div[1]/table[1]/tfoot[1]/tr[3]/td[1]/strong[1]/span[1]")
 	WebElement totalPriceElem;
 
+	@FindBy(how = How.XPATH, xpath = "//div[@id='checkoutError']")
+	WebElement checkoutErrorElem;
+
 	public CheckoutPO(WebDriver driver) {
 		super(driver);
 	}
@@ -219,9 +222,9 @@ public class CheckoutPO extends FooterNavigationPO {
 		shippingPostalCodeInputElem.sendKeys(postalCode);
 	}
 
-	public WebDriver clickSubmitOrder() {
+	public OrderConfirmationPO clickSubmitOrder() {
 		submitOrderBtnElem.click();
-		return driver;
+		return new OrderConfirmationPO(driver);
 	}
 
 	public String getFormMessage() {
@@ -239,6 +242,10 @@ public class CheckoutPO extends FooterNavigationPO {
 
 	public boolean isSubmitOrderButtonEnable() {
 		return submitOrderBtnElem.isEnabled();
+	}
+
+	public String getCheckoutError() {
+		return checkoutErrorElem.getText();
 	}
 
 }

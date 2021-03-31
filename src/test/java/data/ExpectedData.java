@@ -19,7 +19,7 @@ public class ExpectedData {
 	public static final double CHECKOUT_SHIPPING_PRICE = 14.0;
 	public static final double CHECKOUT_SHIPPING_PRICE_DIFFERENT_ADDRESS = 12.0;
 
-	public static final String CHECKOUT_MESSAGE_FORM_OK = "The order can be completed";
+	public static final String CHECKOUT_MSG_FORM_OK = "The order can be completed";
 	public static final String CHECKOUT_MSG_FORM_FIRST_NAME_REQUIRED = "First name is required";
 	public static final String CHECKOUT_MSG_FORM_LAST_NAME_REQUIRED = "Last name is required";
 	public static final String CHECKOUT_MSG_FORM_STREET_ADDRESS_REQUIRED = "Street address is required";
@@ -27,12 +27,17 @@ public class ExpectedData {
 	public static final String CHECKOUT_MSG_FORM_POSTAL_CODE_REQUIRED = "Postal code is required";
 	public static final String CHECKOUT_MSG_FORM_EMAIL_REQUIRED = "Email address is required";
 	public static final String CHECKOUT_MSG_FORM_PHONE_NUMBER_REQUIRED = "Phone number is required";
+	public static final String CHECKOUT_MSG_FORM_PASSWORD_REQUIRED = "A password is required";
 
 	public static final String CHECKOUT_SHIPPING_MSG_FORM_FIRST_NAME_REQUIRED = "Shipping first name should not be empty";
 	public static final String CHECKOUT_SHIPPING_MSG_FORM_LAST_NAME_REQUIRED = "Shipping last name should not be empty";
 	public static final String CHECKOUT_SHIPPING_MSG_FORM_STREET_ADDRESS_REQUIRED = "Shipping street address should not be empty";
 	public static final String CHECKOUT_SHIPPING_MSG_FORM_CITY_REQUIRED = "Shipping city should not be empty";
 	public static final String CHECKOUT_SHIPPING_MSG_FORM_POSTAL_CODE_REQUIRED = "Shipping postal code should not be empty";
-	public static final String CHECKOUT_MSG_FORM_PASSWORD_REQUIRED = "A password is required";
+
+	public static final String CHECKOUT_ERROR_GENERIC = "An error occurred in this request";
+
+	public static final String ORDER_CONFIRMATION_TITLE_OK = "Order completed";
+	public static final String ORDER_CONFIRMATION_MSG_ID_REGEX = "Your order id is \\d+.";
 
 }
