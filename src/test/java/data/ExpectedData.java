@@ -40,4 +40,14 @@ public class ExpectedData {
 	public static final String ORDER_CONFIRMATION_TITLE_OK = "Order completed";
 	public static final String ORDER_CONFIRMATION_MSG_ID_REGEX = "Your order id is \\d+.";
 
+	public static final String CHANGE_PASSWORD_MSG_INVALID_PASSWORD = "Invalid password";
+	public static final String CHANGE_PASSWORD_MSG_MISMATCH = "Both password must match";
+	public static final String CHANGE_PASSWORD_MSG_SHORT_PASSWORD = "Password must be at least 6 characters";
+
+	public static final String ITEM_REVIEW_MSG_OPINION_REQUIRED = "Your opinion is required";
+	public static final String ITEM_REVIEW_MSG_RATING_REQUIRED = "Product rating is required";
+	public static final String ITEM_REVIEW_MSG_SUCCESSFULLY_CREATED = "You have successfully created a product review";
+
+	public static final String HEADER_MY_ACCOUNT_MESSAGE_NO_LOGIN = "My Account";
+
 }

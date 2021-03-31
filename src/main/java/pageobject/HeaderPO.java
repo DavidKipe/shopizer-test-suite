@@ -17,6 +17,9 @@ public class HeaderPO extends ShopizerPO {
 	@FindBy(how = How.XPATH, xpath = "//body/nav[1]/div[1]/ul[2]/li[2]/a[1]/span[1]/span[1]")
 	WebElement welcomeNameSpanElem;
 
+	@FindBy(how = How.XPATH, xpath = "//body/nav[1]/div[1]/ul[2]/li[2]/a[1]/span[1]")
+	WebElement myAccountSpanElem;
+
 	public HeaderPO(WebDriver driver) {
 		super(driver);
 	}
@@ -32,6 +35,10 @@ public class HeaderPO extends ShopizerPO {
 	public String getWelcomeName() {
 		wait.until(ExpectedConditions.visibilityOf(welcomeNameSpanElem));
 		return welcomeNameSpanElem.getText();
+	}
+
+	public String getMyAccountMessage() {
+		return myAccountSpanElem.getText();
 	}
 
 }

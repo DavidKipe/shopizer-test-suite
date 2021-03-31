@@ -37,6 +37,15 @@ public class RateItemPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//button[contains(text(),'Submit')]")
 	WebElement submitBtnElem;
 
+	@FindBy(how = How.XPATH, xpath = "//div[@id='review.errors']")
+	WebElement reviewErrorElem;
+
+	@FindBy(how = How.XPATH, xpath = "//div[@id='store.success']")
+	WebElement storeSuccessMessageElem;
+
+	@FindBy(how = How.XPATH, xpath = "//body[1]/div[3]/div[2]/div[1]/blockquote[1]/p[1]")
+	WebElement justInsertedReviewOpinionElem;
+
 	public RateItemPO(WebDriver driver) {
 		super(driver);
 	}
@@ -97,6 +106,18 @@ public class RateItemPO extends FooterNavigationPO {
 
 	public void clickOnSubmit() {
 		submitBtnElem.click();
+	}
+
+	public String getReviewError() {
+		return reviewErrorElem.getText();
+	}
+
+	public String getStoreSuccessMessage() {
+		return storeSuccessMessageElem.getText();
+	}
+
+	public String getJustInsertedReviewOpinion() {
+		return justInsertedReviewOpinionElem.getText();
 	}
 
 }

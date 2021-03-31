@@ -2,6 +2,7 @@ package assertions;
 
 import data.InputData;
 import driver.DriverManager;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import pageobject.LoginPO;
 import pageobject.RateItemPO;
 import pageobject.StoreItemsPO;
 
+import static data.ExpectedData.*;
 import static data.InputData.*;
 
 public class ItemReviewTests {
@@ -36,6 +38,8 @@ public class ItemReviewTests {
 		RateItemPO rateItemPO = storeItemsPO.clickOnItemWithName(InputData.ITEM_NAME_1).clickOnWriteReview();
 		rateItemPO.setStars(REVIEW_RATING_STARS);
 		rateItemPO.clickOnSubmit();
+
+		Assertions.assertEquals(ITEM_REVIEW_MSG_OPINION_REQUIRED, rateItemPO.getReviewError());
 	}
 
 	@Test
@@ -50,6 +54,8 @@ public class ItemReviewTests {
 		RateItemPO rateItemPO = storeItemsPO.clickOnItemWithName(InputData.ITEM_NAME_1).clickOnWriteReview();
 		rateItemPO.setOpinion(REVIEW_OPINION);
 		rateItemPO.clickOnSubmit();
+
+		Assertions.assertEquals(ITEM_REVIEW_MSG_RATING_REQUIRED, rateItemPO.getReviewError());
 	}
 
 	@Test
@@ -65,6 +71,9 @@ public class ItemReviewTests {
 		rateItemPO.setOpinion(REVIEW_OPINION);
 		rateItemPO.setStars(REVIEW_RATING_STARS);
 		rateItemPO.clickOnSubmit();
+
+		Assertions.assertEquals(ITEM_REVIEW_MSG_SUCCESSFULLY_CREATED, rateItemPO.getStoreSuccessMessage());
+		Assertions.assertEquals(REVIEW_OPINION, rateItemPO.getJustInsertedReviewOpinion());
 	}
 
 	// @AfterEach

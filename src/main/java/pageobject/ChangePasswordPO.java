@@ -19,6 +19,15 @@ public class ChangePasswordPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//input[@id='submitChangePassword']")
 	WebElement changePasswordBtnElem;
 
+	@FindBy(how = How.XPATH, xpath = "//div[@id='password.errors']")
+	WebElement passwordErrorElem;
+
+	@FindBy(how = How.XPATH, xpath = "//div[@id='formError']")
+	WebElement formErrorElem;
+
+	@FindBy(how = How.XPATH, xpath = "//div[@id='store.success']")
+	WebElement storeSuccessMessageElem;
+
 	public ChangePasswordPO(WebDriver driver) {
 		super(driver);
 	}
@@ -40,6 +49,22 @@ public class ChangePasswordPO extends FooterNavigationPO {
 
 	public void clickOnChangePassword() {
 		changePasswordBtnElem.click();
+	}
+
+	public boolean isChangePasswordButtonEnabled() {
+		return changePasswordBtnElem.isEnabled();
+	}
+
+	public String getPasswordError() {
+		return passwordErrorElem.getText();
+	}
+
+	public String getFormError() {
+		return formErrorElem.getText();
+	}
+
+	public String getStoreSuccessMessage() {
+		return storeSuccessMessageElem.getText();
 	}
 
 }
