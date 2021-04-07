@@ -493,7 +493,7 @@ public class CheckoutTests {
 		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}

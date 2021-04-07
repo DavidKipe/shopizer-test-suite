@@ -100,7 +100,7 @@ public class ItemsTests {
 		Assertions.assertTrue(sorted);
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}

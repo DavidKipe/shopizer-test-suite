@@ -97,7 +97,7 @@ public class SubmitOrderTests {
 		Assertions.assertTrue(orderConfirmationPO.getOrderIdMessage().matches(ORDER_CONFIRMATION_MSG_ID_REGEX));
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}

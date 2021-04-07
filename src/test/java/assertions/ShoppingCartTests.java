@@ -96,7 +96,7 @@ public class ShoppingCartTests {
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE, shoppingCartPO.getTotalPrice());
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}

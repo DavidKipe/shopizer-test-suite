@@ -58,24 +58,6 @@ public class RegistrationTests {
 		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
-	// This test is to be removed
-//	@Test
-//	@Order(3)
-//	public void testRegisterMemberWithEmptyStateProvince() {
-//		RegistrationPO registrationPO = homePO.goToRegister();
-//
-//		registrationPO.setFirstName(FIRST_NAME);
-//		registrationPO.setLastName(LAST_NAME);
-//		registrationPO.setCountry(COUNTRY);
-//		//registrationPO.setStateProvince(stateProvince);
-//		registrationPO.setEmail(EMAIL);
-//		registrationPO.setPassword(PASSWORD);
-//		registrationPO.setRepeatPassword(PASSWORD);
-//		registrationPO.createAccount();
-//
-//		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
-//	}
-
 	@Test
 	@Order(4)
 	public void testRegisterMemberWithEmptyEmail() {
@@ -102,7 +84,7 @@ public class RegistrationTests {
 		registrationPO.setLastName(LAST_NAME);
 		registrationPO.setCountry(COUNTRY);
 		registrationPO.setStateProvince(STATE_PROVINCE);
-		registrationPO.setEmail(EMAIL);
+		registrationPO.setEmail(EMAIL_2);
 		//registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
@@ -119,7 +101,7 @@ public class RegistrationTests {
 		registrationPO.setLastName(LAST_NAME);
 		registrationPO.setCountry(COUNTRY);
 		registrationPO.setStateProvince(STATE_PROVINCE);
-		registrationPO.setEmail(EMAIL_2);
+		registrationPO.setEmail(EMAIL_3);
 		registrationPO.setPassword(PASSWORD);
 		//registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
@@ -180,7 +162,7 @@ public class RegistrationTests {
 		Assertions.assertEquals(REGISTRATION_USER_NAME_ALREADY_EXISTS, registrationPO.getCustomerErrors());
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}

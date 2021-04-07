@@ -1,12 +1,14 @@
 package pageobject;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class ShoppingCartPO extends FooterNavigationPO {
@@ -58,7 +60,7 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	}
 
 	public List<String> getItemNamesList() {
-		return itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
+		return staleManager(() -> itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
 	}
 
 	public List<String> getItemPricesStringList() {
@@ -74,11 +76,19 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	}
 
 	public List<Double> getItemTotalPartialPricesList() {
-		return itemTotalPartialPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList());
+		return staleManager(() -> itemTotalPartialPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList()));
 	}
 
 	public double getTotalPrice() {
 		return Double.parseDouble(totalPriceSpanElem.getText().substring(1));
+	}
+
+	private <R> R staleManager(Supplier<R> supplier) {
+		try {
+			return supplier.get();
+		} catch (StaleElementReferenceException e) {
+			return supplier.get();
+		}
 	}
 
 }

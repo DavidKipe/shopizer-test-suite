@@ -39,7 +39,9 @@ public class StoreItemsPO extends FooterNavigationPO {
 	}
 
 	public StoreItemDetailPO clickOnItemWithName(String name) {
-		WebElement itemLinkElem = driver.findElement(By.xpath(String.format(itemLinkSelectorByName, name)));
+		By itemLinkSelectorByNameXpath = By.xpath(String.format(itemLinkSelectorByName, name));
+		wait.until(ExpectedConditions.elementToBeClickable(itemLinkSelectorByNameXpath));
+		WebElement itemLinkElem = driver.findElement(itemLinkSelectorByNameXpath);
 		itemLinkElem.click();
 		return new StoreItemDetailPO(driver);
 	}

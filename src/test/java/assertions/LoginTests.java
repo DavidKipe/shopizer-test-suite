@@ -86,7 +86,7 @@ public class LoginTests {
 		Assertions.assertEquals(FIRST_NAME, headerPO.getWelcomeName());
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}

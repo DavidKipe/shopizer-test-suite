@@ -2,10 +2,7 @@ package assertions;
 
 import data.InputData;
 import driver.DriverManager;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.HomePO;
 import pageobject.LoginPO;
@@ -15,6 +12,7 @@ import pageobject.StoreItemsPO;
 import static data.ExpectedData.*;
 import static data.InputData.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemReviewTests {
 
 	HomePO homePO;
@@ -76,7 +74,7 @@ public class ItemReviewTests {
 		Assertions.assertEquals(REVIEW_OPINION, rateItemPO.getJustInsertedReviewOpinion());
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}

@@ -159,7 +159,7 @@ public class AccountManagementTests {
 		Assertions.assertEquals(FIRST_NAME, headerPO.getWelcomeName());
 	}
 
-	// @AfterEach
+	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
 	}
