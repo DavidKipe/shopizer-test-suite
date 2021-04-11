@@ -1,11 +1,10 @@
-package assertions;
+package recheck.explicit;
 
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.*;
 
-import static data.ExpectedData.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -30,8 +29,6 @@ public class AccountManagementTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login().clickLogout();
-
-		Assertions.assertEquals(HEADER_MY_ACCOUNT_MESSAGE_NO_LOGIN, headerPO.getMyAccountMessage());
 	}
 
 	@Test
@@ -47,8 +44,6 @@ public class AccountManagementTests {
 		changePasswordPO.setNewPassword(NEW_PASSWORD);
 		changePasswordPO.setRepeatPassword(NEW_PASSWORD);
 		changePasswordPO.clickOnChangePassword();
-
-		Assertions.assertEquals(CHANGE_PASSWORD_MSG_INVALID_PASSWORD, changePasswordPO.getPasswordError());
 	}
 
 	@Test
@@ -64,9 +59,6 @@ public class AccountManagementTests {
 		changePasswordPO.setNewPassword(NEW_PASSWORD);
 		changePasswordPO.setRepeatPassword(NEW_INCORRECT_PASSWORD);
 		changePasswordPO.clickOnChangePassword();
-
-		Assertions.assertEquals(CHANGE_PASSWORD_MSG_MISMATCH, changePasswordPO.getFormError());
-		Assertions.assertFalse(changePasswordPO.isChangePasswordButtonEnabled());
 	}
 
 	@Test
@@ -82,9 +74,6 @@ public class AccountManagementTests {
 		changePasswordPO.setNewPassword(SHORT_PASSWORD);
 		changePasswordPO.setRepeatPassword(SHORT_PASSWORD);
 		changePasswordPO.clickOnChangePassword();
-
-		Assertions.assertEquals(CHANGE_PASSWORD_MSG_SHORT_PASSWORD, changePasswordPO.getFormError());
-		Assertions.assertFalse(changePasswordPO.isChangePasswordButtonEnabled());
 	}
 
 	@Test
@@ -94,16 +83,7 @@ public class AccountManagementTests {
 
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
-		EditAddressPO editAddressPO = loginPO.login().goToBillingShippingInfo().goToEditBillingAddress();
-
-		Assertions.assertEquals(FIRST_NAME, editAddressPO.getFirstName());
-		Assertions.assertEquals(LAST_NAME, editAddressPO.getLastName());
-		Assertions.assertEquals(BILLING_ADDRESS, editAddressPO.getAddress());
-		Assertions.assertEquals(BILLING_CITY, editAddressPO.getCity());
-		Assertions.assertEquals(COUNTRY, editAddressPO.getCountry());
-		Assertions.assertEquals(STATE_PROVINCE, editAddressPO.getStateProv());
-		Assertions.assertEquals(BILLING_POSTAL_CODE, editAddressPO.getPostalCode());
-		Assertions.assertEquals(BILLING_PHONE_NUMBER, editAddressPO.getPhoneNumber());
+		loginPO.login().goToBillingShippingInfo().goToEditBillingAddress();
 	}
 
 	@Test
@@ -117,9 +97,7 @@ public class AccountManagementTests {
 
 		editAddressPO.setStreetAddress(NEW_BILLING_ADDRESS);
 		editAddressPO.clickOnChangeAddress();
-		editAddressPO = editAddressPO.goToBillingShippingInfo().goToEditBillingAddress();
-
-		Assertions.assertEquals(NEW_BILLING_ADDRESS, editAddressPO.getAddress());
+		editAddressPO.goToBillingShippingInfo().goToEditBillingAddress();
 	}
 
 	@Test
@@ -133,9 +111,7 @@ public class AccountManagementTests {
 
 		editAddressPO.setStreetAddress(NEW_SHIPPING_ADDRESS);
 		editAddressPO.clickOnChangeAddress();
-		editAddressPO = editAddressPO.goToBillingShippingInfo().goToEditShippingAddress();
-
-		Assertions.assertEquals(NEW_SHIPPING_ADDRESS, editAddressPO.getAddress());
+		editAddressPO.goToBillingShippingInfo().goToEditShippingAddress();
 	}
 
 	@Test
@@ -156,8 +132,6 @@ public class AccountManagementTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(NEW_PASSWORD);
 		loginPO.login();
-
-		Assertions.assertEquals(FIRST_NAME, headerPO.getWelcomeName());
 	}
 
 	@AfterEach
