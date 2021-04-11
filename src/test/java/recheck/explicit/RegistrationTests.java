@@ -1,5 +1,8 @@
 package recheck.explicit;
 
+import de.retest.recheck.Recheck;
+import de.retest.recheck.RecheckImpl;
+import de.retest.recheck.RecheckOptions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -12,13 +15,25 @@ import static data.InputData.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RegistrationTests {
 
+	private WebDriver driver;
+	private Recheck re;
+
 	HomePO homePO;
 	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
+
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				//.enableReportUpload()
+				//.addIgnore("addowner_help_errors.filter.js")
+				//.addIgnore("addowner.filter")
+				.build();
+
+		re = new RecheckImpl(recheckOptions);
+
 		homePO = new HomePO(driver);
 		headerPO = new HeaderPO(driver);
 	}
@@ -26,6 +41,8 @@ public class RegistrationTests {
 	@Test
 	@Order(1)
 	public void testRegisterMemberWithEmptyFirstName() {
+		re.startTest("testRegisterMemberWithEmptyFirstName");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		//registrationPO.setFirstName(firstName);
@@ -147,7 +164,10 @@ public class RegistrationTests {
 
 	@AfterEach
 	void afterEach() {
+		re.check(driver, "check");
+		re.capTest();
 		homePO.quitDriver();
+		re.cap();
 	}
 
 }
