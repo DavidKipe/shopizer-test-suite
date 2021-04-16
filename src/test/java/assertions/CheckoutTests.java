@@ -73,7 +73,7 @@ public class CheckoutTests {
 
 	@Test
 	@Order(3)
-	public void testCheckoutOrderDifferentShippingAddress() throws InterruptedException {
+	public void testCheckoutOrderDifferentShippingAddress() {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -101,7 +101,7 @@ public class CheckoutTests {
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
-		Thread.sleep(500);
+		checkoutPO.waitForLoadingOverlay();
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE + CHECKOUT_SHIPPING_PRICE_DIFFERENT_ADDRESS, checkoutPO.getTotalPrice());
 		Assertions.assertEquals(CHECKOUT_MSG_FORM_OK, checkoutPO.getFormMessage());
 	}

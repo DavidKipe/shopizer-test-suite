@@ -82,6 +82,9 @@ public class CheckoutPO extends FooterNavigationPO {
 	@FindBy(how = How.XPATH, xpath = "//div[@id='checkoutError']")
 	WebElement checkoutErrorElem;
 
+	@FindBy(how = How.XPATH, xpath = "//input[@id='customer.password']")
+	WebElement accountPasswordCreationInputElem;
+
 	public CheckoutPO(WebDriver driver) {
 		super(driver);
 	}
@@ -246,6 +249,10 @@ public class CheckoutPO extends FooterNavigationPO {
 
 	public String getCheckoutError() {
 		return checkoutErrorElem.getText();
+	}
+
+	public void waitForAccountPasswordInput() {
+		wait.until(ExpectedConditions.visibilityOf(accountPasswordCreationInputElem));
 	}
 
 }
