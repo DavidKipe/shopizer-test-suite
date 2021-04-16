@@ -6,7 +6,6 @@ import de.retest.recheck.RecheckOptions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-import pageobject.HeaderPO;
 import pageobject.HomePO;
 import pageobject.LoginPO;
 

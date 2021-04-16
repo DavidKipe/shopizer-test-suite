@@ -1,0 +1,2 @@
+matcher: type=input, attribute=id
+matcher: type=a, attribute=onclick
