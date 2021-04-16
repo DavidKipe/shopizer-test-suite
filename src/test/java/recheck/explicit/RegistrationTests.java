@@ -6,7 +6,6 @@ import de.retest.recheck.RecheckOptions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-import pageobject.HeaderPO;
 import pageobject.HomePO;
 import pageobject.RegistrationPO;
 
@@ -19,7 +18,6 @@ public class RegistrationTests {
 	private Recheck re;
 
 	HomePO homePO;
-	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
@@ -35,7 +33,6 @@ public class RegistrationTests {
 		re = new RecheckImpl(recheckOptions);
 
 		homePO = new HomePO(driver);
-		headerPO = new HeaderPO(driver);
 	}
 
 	@Test
@@ -58,6 +55,8 @@ public class RegistrationTests {
 	@Test
 	@Order(2)
 	public void testRegisterMemberWithEmptyLastName() {
+		re.startTest("testRegisterMemberWithEmptyLastName");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -73,6 +72,8 @@ public class RegistrationTests {
 	@Test
 	@Order(4)
 	public void testRegisterMemberWithEmptyEmail() {
+		re.startTest("testRegisterMemberWithEmptyEmail");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -88,6 +89,8 @@ public class RegistrationTests {
 	@Test
 	@Order(5)
 	public void testRegisterMemberWithEmptyPassword() {
+		re.startTest("testRegisterMemberWithEmptyPassword");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -103,6 +106,8 @@ public class RegistrationTests {
 	@Test
 	@Order(6)
 	public void testRegisterMemberWithEmptyRepeatPassword() {
+		re.startTest("testRegisterMemberWithEmptyRepeatPassword");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -118,6 +123,8 @@ public class RegistrationTests {
 	@Test
 	@Order(7)
 	public void testRegisterWithPasswordMismatch() {
+		re.startTest("testRegisterWithPasswordMismatch");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -133,6 +140,8 @@ public class RegistrationTests {
 	@Test
 	@Order(8)
 	public void testRegisterMemberWithValidData() {
+		re.startTest("testRegisterMemberWithValidData");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.dismissCookieMessageIfPresent();
@@ -150,6 +159,8 @@ public class RegistrationTests {
 	@Test
 	@Order(9)
 	public void testRegisterDuplicateMember() {
+		re.startTest("testRegisterDuplicateMember");
+
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);

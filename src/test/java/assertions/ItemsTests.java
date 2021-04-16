@@ -51,6 +51,9 @@ public class ItemsTests {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		storeItemsPO.filterItemsByCollection(ITEMS_COLLECTION_NAME_1);
+		storeItemsPO.waitForItemsToBeClickable();
+		storeItemsPO.waitForSortTransitions();
+
 		List<String> itemNamesList = storeItemsPO.getItemNamesList();
 		Collections.sort(itemNamesList);
 
@@ -64,16 +67,18 @@ public class ItemsTests {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		storeItemsPO.sortByName();
+		storeItemsPO.waitForSortTransitions();
+
 		List<String> itemNamesList = storeItemsPO.getItemNamesList();
 
 		boolean sorted = true;
 		String previous = ""; // empty string: guaranteed to be less than or equal to any other
-		for (final String current: itemNamesList) {
-		    if (current.compareTo(previous) < 0) {
-			    sorted = false;
-			    break;
-		    }
-		    previous = current;
+		for (final String current : itemNamesList) {
+			if (current.compareTo(previous) < 0) {
+				sorted = false;
+				break;
+			}
+			previous = current;
 		}
 
 		Assertions.assertTrue(sorted);
@@ -85,16 +90,18 @@ public class ItemsTests {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		storeItemsPO.sortByPrice();
+		storeItemsPO.waitForSortTransitions();
+
 		List<Double> itemPricesList = storeItemsPO.getItemPricesList();
 
 		boolean sorted = true;
 		double previous = 0.0;
-		for (final double current: itemPricesList) {
-		    if (current < previous) {
-			    sorted = false;
-			    break;
-		    }
-		    previous = current;
+		for (final double current : itemPricesList) {
+			if (current < previous) {
+				sorted = false;
+				break;
+			}
+			previous = current;
 		}
 
 		Assertions.assertTrue(sorted);

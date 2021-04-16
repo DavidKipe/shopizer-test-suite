@@ -30,7 +30,6 @@ public class StoreItemsPO extends FooterNavigationPO {
 	}
 
 	public List<String> getItemNamesList() {
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//body/div[@id='mainContent']/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/section[1]/div[1]/div[1]/div[2]/div[2]/div[1]/a[1]")));
 		return itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
 	}
 
@@ -54,21 +53,19 @@ public class StoreItemsPO extends FooterNavigationPO {
 	public void sortByName() {
 		Select countrySelect = new Select(sortBySelectElem);
 		countrySelect.selectByVisibleText("Name");
-		sleepOneSec();
 	}
 
 	public void sortByPrice() {
 		Select countrySelect = new Select(sortBySelectElem);
 		countrySelect.selectByVisibleText("Price");
-		sleepOneSec();
 	}
 
-	private void sleepOneSec() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void waitForItemsToBeClickable() {
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//body/div[@id='mainContent']/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/section[1]/div[1]/div[1]/div[2]/div[2]/div[1]/a[1]")));
+	}
+
+	public void waitForSortTransitions() {
+		wait.until(ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//body/div[@id='mainContent']/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/section[1]/div[1]/div[1]")),"style", "")); // new wait method
 	}
 
 }
