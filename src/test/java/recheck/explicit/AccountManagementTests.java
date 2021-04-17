@@ -1,29 +1,42 @@
 package recheck.explicit;
 
+import de.retest.recheck.Recheck;
+import de.retest.recheck.RecheckImpl;
+import de.retest.recheck.RecheckOptions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-import pageobject.*;
+import pageobject.ChangePasswordPO;
+import pageobject.EditAddressPO;
+import pageobject.HomePO;
+import pageobject.LoginPO;
 
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AccountManagementTests {
 
+	private WebDriver driver;
+	private Recheck re;
+
 	HomePO homePO;
-	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
+
+		RecheckOptions recheckOptions = RecheckOptions.builder().build();
+		re = new RecheckImpl(recheckOptions);
+
 		homePO = new HomePO(driver);
-		headerPO = new HeaderPO(driver);
 	}
 
 	@Test
 	@Order(1)
 	public void testLogout() {
+		re.startTest("testLogout");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -34,6 +47,8 @@ public class AccountManagementTests {
 	@Test
 	@Order(2)
 	public void testChangePasswordWithIncorrectPassword() {
+		re.startTest("testChangePasswordWithIncorrectPassword");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -49,6 +64,8 @@ public class AccountManagementTests {
 	@Test
 	@Order(3)
 	public void testChangePasswordWithPasswordMismatch() {
+		re.startTest("testChangePasswordWithPasswordMismatch");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -64,6 +81,8 @@ public class AccountManagementTests {
 	@Test
 	@Order(4)
 	public void testChangePasswordWithShortPassword() {
+		re.startTest("testChangePasswordWithShortPassword");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -79,6 +98,8 @@ public class AccountManagementTests {
 	@Test
 	@Order(5)
 	public void testCorrectnessBillingAddresses() {
+		re.startTest("testCorrectnessBillingAddresses");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -89,6 +110,8 @@ public class AccountManagementTests {
 	@Test
 	@Order(6)
 	public void testEditBillingAddress() {
+		re.startTest("testEditBillingAddress");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -103,6 +126,8 @@ public class AccountManagementTests {
 	@Test
 	@Order(7)
 	public void testEditShippingAddress() {
+		re.startTest("testEditShippingAddress");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -117,6 +142,8 @@ public class AccountManagementTests {
 	@Test
 	@Order(8)
 	public void testChangePassword() {
+		re.startTest("testChangePassword");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -136,7 +163,10 @@ public class AccountManagementTests {
 
 	@AfterEach
 	void afterEach() {
+		re.check(driver, "check");
+		re.capTest();
 		homePO.quitDriver();
+		re.cap();
 	}
 
 }

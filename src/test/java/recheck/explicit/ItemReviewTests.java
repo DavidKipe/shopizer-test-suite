@@ -1,6 +1,9 @@
 package recheck.explicit;
 
 import data.InputData;
+import de.retest.recheck.Recheck;
+import de.retest.recheck.RecheckImpl;
+import de.retest.recheck.RecheckOptions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -14,18 +17,27 @@ import static data.InputData.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemReviewTests {
 
+	private WebDriver driver;
+	private Recheck re;
+
 	HomePO homePO;
 
 	@BeforeEach
 	public void beforeEach() {
-		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
+
+		RecheckOptions recheckOptions = RecheckOptions.builder().build();
+		re = new RecheckImpl(recheckOptions);
+
 		homePO = new HomePO(driver);
 	}
 
 	@Test
 	@Order(1)
 	public void testReviewAnItemWithEmptyOpinion() {
+		re.startTest("testReviewAnItemWithEmptyOpinion");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -40,6 +52,8 @@ public class ItemReviewTests {
 	@Test
 	@Order(2)
 	public void testReviewAnItemWithEmptyRating() {
+		re.startTest("testReviewAnItemWithEmptyRating");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -54,6 +68,8 @@ public class ItemReviewTests {
 	@Test
 	@Order(3)
 	public void testReviewAnItem() {
+		re.startTest("testReviewAnItem");
+
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -68,7 +84,10 @@ public class ItemReviewTests {
 
 	@AfterEach
 	void afterEach() {
+		re.check(driver, "check");
+		re.capTest();
 		homePO.quitDriver();
+		re.cap();
 	}
 
 }

@@ -517,7 +517,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickOnCreateAnAccount();
 
-		checkoutPO.waitForAccountPasswordInput();
+		checkoutPO.waitForAccountPasswordElem();
 	}
 
 	@AfterEach
