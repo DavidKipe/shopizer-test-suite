@@ -27,7 +27,9 @@ public class ItemReviewTests {
 		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		RecheckOptions recheckOptions = RecheckOptions.builder().build();
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				.addIgnore("review-item.filter")
+				.build();
 		re = new RecheckImpl(recheckOptions);
 
 		homePO = new HomePO(driver);

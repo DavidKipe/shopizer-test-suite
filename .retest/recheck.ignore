@@ -34,5 +34,4 @@ pixel-diff=5px
 # ignore the cookie disclaimer
 matcher: xpath=html[1]/body[1]/div[1]
 
-
-attribute=outline
+attribute-regex=.*outline.*

@@ -25,12 +25,7 @@ public class ItemsTests {
 		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		RecheckOptions recheckOptions = RecheckOptions.builder()
-				//.enableReportUpload()
-				//.addIgnore("addowner_help_errors.filter.js")
-				//.addIgnore("addowner.filter")
-				.build();
-
+		RecheckOptions recheckOptions = RecheckOptions.builder().build();
 		re = new RecheckImpl(recheckOptions);
 
 		homePO = new HomePO(driver);

@@ -26,11 +26,8 @@ public class CheckoutTests {
 		driver.get("http://localhost:8080");
 
 		RecheckOptions recheckOptions = RecheckOptions.builder()
-				//.enableReportUpload()
-				//.addIgnore("addowner_help_errors.filter.js")
-				//.addIgnore("addowner.filter")
+				.addIgnore("checkout.filter")
 				.build();
-
 		re = new RecheckImpl(recheckOptions);
 
 
@@ -517,7 +514,7 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickOnCreateAnAccount();
 
-		checkoutPO.waitForAccountPasswordElem();
+		checkoutPO.waitForAccountPasswordInput();
 	}
 
 	@AfterEach
