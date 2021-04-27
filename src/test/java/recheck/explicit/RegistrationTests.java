@@ -45,6 +45,9 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -62,6 +65,9 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -79,6 +85,9 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -96,6 +105,9 @@ public class RegistrationTests {
 		//registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -113,6 +125,9 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		//registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -130,6 +145,9 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(INCORRECT_PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -149,6 +167,9 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -166,12 +187,13 @@ public class RegistrationTests {
 		registrationPO.setPassword(PASSWORD);
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@AfterEach
 	void afterEach() {
-		re.check(driver, "check");
-		re.capTest();
 		homePO.quitDriver();
 		re.cap();
 	}

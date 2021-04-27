@@ -58,6 +58,9 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -84,6 +87,9 @@ public class CheckoutTests {
 		checkoutPO.setStorePickUp();
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -119,6 +125,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -144,6 +153,9 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -169,6 +181,9 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -194,6 +209,9 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -219,6 +237,9 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -244,6 +265,9 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -269,6 +293,9 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -294,6 +321,9 @@ public class CheckoutTests {
 		//checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -329,6 +359,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -364,6 +397,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -399,6 +435,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -434,6 +473,9 @@ public class CheckoutTests {
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -469,6 +511,9 @@ public class CheckoutTests {
 		//checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
 		checkoutPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -489,6 +534,9 @@ public class CheckoutTests {
 		storeItemDetailPO.clickAddToCart();
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.clickProceedToCheckout();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -515,12 +563,13 @@ public class CheckoutTests {
 		checkoutPO.clickOnCreateAnAccount();
 
 		checkoutPO.waitForAccountPasswordInput();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@AfterEach
 	void afterEach() {
-		re.check(driver, "check");
-		re.capTest();
 		homePO.quitDriver();
 		re.cap();
 	}

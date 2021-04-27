@@ -39,6 +39,9 @@ public class ItemsTests {
 		homePO.goToHandbags();
 
 		homePO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -49,6 +52,9 @@ public class ItemsTests {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -62,6 +68,9 @@ public class ItemsTests {
 
 		storeItemsPO.waitForItemsToBeClickable();
 		storeItemsPO.waitForSortTransitions();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -74,6 +83,9 @@ public class ItemsTests {
 		storeItemsPO.sortByName();
 
 		storeItemsPO.waitForSortTransitions();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -86,12 +98,13 @@ public class ItemsTests {
 		storeItemsPO.sortByPrice();
 
 		storeItemsPO.waitForSortTransitions();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@AfterEach
 	void afterEach() {
-		re.check(driver, "check");
-		re.capTest();
 		homePO.quitDriver();
 		re.cap();
 	}

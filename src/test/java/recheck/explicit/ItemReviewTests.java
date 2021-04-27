@@ -49,6 +49,9 @@ public class ItemReviewTests {
 		RateItemPO rateItemPO = storeItemsPO.clickOnItemWithName(InputData.ITEM_NAME_1).clickOnWriteReview();
 		rateItemPO.setStars(REVIEW_RATING_STARS);
 		rateItemPO.clickOnSubmit();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -65,6 +68,9 @@ public class ItemReviewTests {
 		RateItemPO rateItemPO = storeItemsPO.clickOnItemWithName(InputData.ITEM_NAME_1).clickOnWriteReview();
 		rateItemPO.setOpinion(REVIEW_OPINION);
 		rateItemPO.clickOnSubmit();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -82,12 +88,13 @@ public class ItemReviewTests {
 		rateItemPO.setOpinion(REVIEW_OPINION);
 		rateItemPO.setStars(REVIEW_RATING_STARS);
 		rateItemPO.clickOnSubmit();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@AfterEach
 	void afterEach() {
-		re.check(driver, "check");
-		re.capTest();
 		homePO.quitDriver();
 		re.cap();
 	}

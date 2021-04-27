@@ -42,6 +42,9 @@ public class AccountManagementTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login().clickLogout();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -59,6 +62,9 @@ public class AccountManagementTests {
 		changePasswordPO.setNewPassword(NEW_PASSWORD);
 		changePasswordPO.setRepeatPassword(NEW_PASSWORD);
 		changePasswordPO.clickOnChangePassword();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -76,6 +82,9 @@ public class AccountManagementTests {
 		changePasswordPO.setNewPassword(NEW_PASSWORD);
 		changePasswordPO.setRepeatPassword(NEW_INCORRECT_PASSWORD);
 		changePasswordPO.clickOnChangePassword();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -93,6 +102,9 @@ public class AccountManagementTests {
 		changePasswordPO.setNewPassword(SHORT_PASSWORD);
 		changePasswordPO.setRepeatPassword(SHORT_PASSWORD);
 		changePasswordPO.clickOnChangePassword();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -105,6 +117,9 @@ public class AccountManagementTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login().goToBillingShippingInfo().goToEditBillingAddress();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -121,6 +136,9 @@ public class AccountManagementTests {
 		editAddressPO.setStreetAddress(NEW_BILLING_ADDRESS);
 		editAddressPO.clickOnChangeAddress();
 		editAddressPO.goToBillingShippingInfo().goToEditBillingAddress();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -137,6 +155,9 @@ public class AccountManagementTests {
 		editAddressPO.setStreetAddress(NEW_SHIPPING_ADDRESS);
 		editAddressPO.clickOnChangeAddress();
 		editAddressPO.goToBillingShippingInfo().goToEditShippingAddress();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -159,12 +180,13 @@ public class AccountManagementTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(NEW_PASSWORD);
 		loginPO.login();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@AfterEach
 	void afterEach() {
-		re.check(driver, "check");
-		re.capTest();
 		homePO.quitDriver();
 		re.cap();
 	}

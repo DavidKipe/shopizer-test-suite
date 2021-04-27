@@ -45,6 +45,9 @@ public class ShoppingCartTests {
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 		storeItemDetailPO.clickAddToCart();
 		headerPO.goToCheckout();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -61,6 +64,9 @@ public class ShoppingCartTests {
 		}
 
 		headerPO.goToCheckout();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -75,6 +81,9 @@ public class ShoppingCartTests {
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.setQuantityForItem(ITEM_NAME_1, 2);
 		shoppingCartPO.clickOnRecalculate();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -92,12 +101,13 @@ public class ShoppingCartTests {
 
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.removeItem("Vintage exotik carry bag");
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@AfterEach
 	void afterEach() {
-		re.check(driver, "check");
-		re.capTest();
 		homePO.quitDriver();
 		re.cap();
 	}

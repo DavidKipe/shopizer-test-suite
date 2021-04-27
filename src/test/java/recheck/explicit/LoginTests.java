@@ -42,6 +42,9 @@ public class LoginTests {
 		loginPO.login();
 
 		loginPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -56,6 +59,9 @@ public class LoginTests {
 		loginPO.login();
 
 		loginPO.waitForLoadingOverlay();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -68,6 +74,9 @@ public class LoginTests {
 		//loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -80,6 +89,9 @@ public class LoginTests {
 		loginPO.setEmail(EMAIL);
 		//loginPO.setPassword(PASSWORD);
 		loginPO.login();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@Test
@@ -94,12 +106,13 @@ public class LoginTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
+
+		re.check(driver, "check");
+		re.capTest();
 	}
 
 	@AfterEach
 	void afterEach() {
-		re.check(driver, "check");
-		re.capTest();
 		homePO.quitDriver();
 		re.cap();
 	}
