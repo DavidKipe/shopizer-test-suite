@@ -1,35 +1,23 @@
-package recheck.explicit;
+package assertions;
 
-import de.retest.recheck.Recheck;
-import de.retest.recheck.RecheckImpl;
-import de.retest.recheck.RecheckOptions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobject.*;
 
+import static data.ExpectedData.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CheckoutTests {
-
-	private WebDriver driver;
-	private Recheck re;
+public class E_CheckoutTests {
 
 	HomePO homePO;
 	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
-
-		RecheckOptions recheckOptions = RecheckOptions.builder()
-				.addIgnore("checkout.filter")
-				.build();
-		re = new RecheckImpl(recheckOptions);
-
-
 		homePO = new HomePO(driver);
 		headerPO = new HeaderPO(driver);
 	}
@@ -37,8 +25,6 @@ public class CheckoutTests {
 	@Test
 	@Order(1)
 	public void testCheckoutOrderWithoutAccount() {
-		re.startTest("testCheckoutOrderWithoutAccount");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -56,17 +42,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE + CHECKOUT_SHIPPING_PRICE, checkoutPO.getTotalPrice());
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
 	@Order(2)
 	public void testCheckoutOrderStorePickUp() {
-		re.startTest("testCheckoutOrderStorePickUp");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -85,17 +67,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.setStorePickUp();
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE, checkoutPO.getTotalPrice());
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
 	@Order(3)
 	public void testCheckoutOrderDifferentShippingAddress() {
-		re.startTest("testCheckoutOrderDifferentShippingAddress");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -124,16 +102,13 @@ public class CheckoutTests {
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
 		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(ITEMS_ITEM_1_PRICE + CHECKOUT_SHIPPING_PRICE_DIFFERENT_ADDRESS, checkoutPO.getTotalPrice());
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_OK, checkoutPO.getFormMessage());
 	}
 
 	@Test
 	@Order(4)
 	public void testCheckoutOrderWithEmptyFirstName() {
-		re.startTest("testCheckoutOrderWithEmptyFirstName");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -151,17 +126,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_FIRST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(5)
 	public void testCheckoutOrderWithEmptyLastName() {
-		re.startTest("testCheckoutOrderWithEmptyLastName");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -179,17 +150,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_LAST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(6)
 	public void testCheckoutOrderWithEmptyAddress() {
-		re.startTest("testCheckoutOrderWithEmptyAddress");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -207,17 +174,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_STREET_ADDRESS_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(7)
 	public void testCheckoutOrderWithEmptyCity() {
-		re.startTest("testCheckoutOrderWithEmptyCity");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -235,17 +198,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_CITY_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(8)
 	public void testCheckoutOrderWithEmptyPostalCode() {
-		re.startTest("testCheckoutOrderWithEmptyPostalCode");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -263,17 +222,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_POSTAL_CODE_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(9)
 	public void testCheckoutOrderWithEmptyEmail() {
-		re.startTest("testCheckoutOrderWithEmptyEmail");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -291,17 +246,13 @@ public class CheckoutTests {
 		//checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_EMAIL_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(10)
 	public void testCheckoutOrderWithEmptyPhoneNumber() {
-		re.startTest("testCheckoutOrderWithEmptyPhoneNumber");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -319,17 +270,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		//checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_PHONE_NUMBER_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(11)
 	public void testCheckoutOrderDifferentShippingAddressWithEmptyFirstName() {
-		re.startTest("testCheckoutOrderDifferentShippingAddressWithEmptyFirstName");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -357,17 +304,13 @@ public class CheckoutTests {
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_FIRST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(12)
 	public void testCheckoutOrderDifferentShippingAddressWithEmptyLastName() {
-		re.startTest("testCheckoutOrderDifferentShippingAddressWithEmptyLastName");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -395,17 +338,13 @@ public class CheckoutTests {
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_LAST_NAME_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(13)
 	public void testCheckoutOrderDifferentShippingAddressWithEmptyAddress() {
-		re.startTest("testCheckoutOrderDifferentShippingAddressWithEmptyAddress");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -433,17 +372,13 @@ public class CheckoutTests {
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_STREET_ADDRESS_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(14)
 	public void testCheckoutOrderDifferentShippingAddressWithEmptyCity() {
-		re.startTest("testCheckoutOrderDifferentShippingAddressWithEmptyCity");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -471,17 +406,13 @@ public class CheckoutTests {
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_CITY_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(15)
 	public void testCheckoutOrderDifferentShippingAddressWithEmptyPostalCode() {
-		re.startTest("testCheckoutOrderDifferentShippingAddressWithEmptyPostalCode");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -509,17 +440,13 @@ public class CheckoutTests {
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		//checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
 
-		checkoutPO.waitForLoadingOverlay();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_SHIPPING_MSG_FORM_POSTAL_CODE_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@Test
 	@Order(16)
 	public void testCheckoutOrderLoggedIn() {
-		re.startTest("testCheckoutOrderLoggedIn");
-
 		LoginPO loginPO = homePO.goToSignIn();
 
 		loginPO.setEmail(EMAIL);
@@ -532,17 +459,18 @@ public class CheckoutTests {
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 		storeItemDetailPO.clickAddToCart();
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
-		shoppingCartPO.clickProceedToCheckout();
+		CheckoutPO checkoutPO = shoppingCartPO.clickProceedToCheckout();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(FIRST_NAME, checkoutPO.getBillingFirstName());
+		Assertions.assertEquals(LAST_NAME, checkoutPO.getBillingLastName());
+		Assertions.assertEquals(COUNTRY, checkoutPO.getBillingCountry());
+		Assertions.assertEquals(STATE_PROVINCE, checkoutPO.getBillingStateProvince());
+		Assertions.assertEquals(EMAIL, checkoutPO.getBillingEmail());
 	}
 
 	@Test
 	@Order(17)
 	public void testCheckoutOrderCreatingAccountEmptyPassword() {
-		re.startTest("testCheckoutOrderCreatingAccountEmptyPassword");
-
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
@@ -561,16 +489,13 @@ public class CheckoutTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickOnCreateAnAccount();
 
-		checkoutPO.waitForAccountPasswordInput();
-
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(CHECKOUT_MSG_FORM_PASSWORD_REQUIRED, checkoutPO.getFormMessage());
+		Assertions.assertFalse(checkoutPO.isSubmitOrderButtonEnable());
 	}
 
 	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
-		re.cap();
 	}
 
 }

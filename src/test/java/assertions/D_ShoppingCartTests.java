@@ -13,7 +13,7 @@ import static data.InputData.ITEM_NAMES;
 import static data.InputData.ITEM_NAME_1;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ShoppingCartTests {
+public class D_ShoppingCartTests {
 
 	HomePO homePO;
 	HeaderPO headerPO;

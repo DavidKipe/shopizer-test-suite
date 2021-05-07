@@ -5,14 +5,14 @@ import recheck.implicit.*;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({
-		RegistrationTests.class,
-		LoginTests.class,
-		ItemsTests.class,
-		ShoppingCartTests.class,
-		CheckoutTests.class,
-		SubmitOrderTests.class,
-		ItemReviewTests.class,
-		AccountManagementTests.class
+		A_RegistrationTests.class,
+		B_LoginTests.class,
+		C_ItemsTests.class,
+		D_ShoppingCartTests.class,
+		E_CheckoutTests.class,
+		F_SubmitOrderTests.class,
+		G_ItemReviewTests.class,
+		H_AccountManagementTests.class
 })
 public class RecheckImplicitTestSuite {
 

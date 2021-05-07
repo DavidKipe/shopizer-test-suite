@@ -8,7 +8,7 @@ import pageobject.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CheckoutTests {
+public class E_CheckoutTests {
 
 	private WebDriver driver;
 

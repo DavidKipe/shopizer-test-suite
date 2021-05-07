@@ -12,7 +12,7 @@ import pageobject.StoreItemsPO;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ItemReviewTests {
+public class G_ItemReviewTests {
 
 	private WebDriver driver;
 

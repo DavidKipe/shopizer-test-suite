@@ -12,7 +12,7 @@ import pageobject.LoginPO;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class LoginTests {
+public class B_LoginTests {
 
 	private WebDriver driver;
 	private Recheck re;

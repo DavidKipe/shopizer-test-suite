@@ -13,7 +13,7 @@ import static data.ExpectedData.ITEMS_COLLECTION_NAME_1;
 import static data.InputData.ITEM_NAME_1;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ItemsTests {
+public class C_ItemsTests {
 
 	private WebDriver driver;
 	private Recheck re;

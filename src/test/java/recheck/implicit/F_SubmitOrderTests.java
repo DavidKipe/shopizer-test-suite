@@ -8,7 +8,7 @@ import pageobject.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class SubmitOrderTests {
+public class F_SubmitOrderTests {
 
 	private WebDriver driver;
 

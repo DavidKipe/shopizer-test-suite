@@ -1,40 +1,32 @@
-package recheck.explicit;
+package assertions;
 
-import de.retest.recheck.Recheck;
-import de.retest.recheck.RecheckImpl;
-import de.retest.recheck.RecheckOptions;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import pageobject.HeaderPO;
 import pageobject.HomePO;
 import pageobject.RegistrationPO;
 
+import static data.ExpectedData.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class RegistrationTests {
-
-	private WebDriver driver;
-	private Recheck re;
+public class A_RegistrationTests {
 
 	HomePO homePO;
+	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
-
-		RecheckOptions recheckOptions = RecheckOptions.builder().build();
-		re = new RecheckImpl(recheckOptions);
-
 		homePO = new HomePO(driver);
+		headerPO = new HeaderPO(driver);
 	}
 
 	@Test
 	@Order(1)
 	public void testRegisterMemberWithEmptyFirstName() {
-		re.startTest("testRegisterMemberWithEmptyFirstName");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		//registrationPO.setFirstName(firstName);
@@ -46,15 +38,12 @@ public class RegistrationTests {
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
 	@Order(2)
 	public void testRegisterMemberWithEmptyLastName() {
-		re.startTest("testRegisterMemberWithEmptyLastName");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -66,15 +55,12 @@ public class RegistrationTests {
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
 	@Order(4)
 	public void testRegisterMemberWithEmptyEmail() {
-		re.startTest("testRegisterMemberWithEmptyEmail");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -86,15 +72,12 @@ public class RegistrationTests {
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
 	@Order(5)
 	public void testRegisterMemberWithEmptyPassword() {
-		re.startTest("testRegisterMemberWithEmptyPassword");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -106,15 +89,12 @@ public class RegistrationTests {
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
 	@Order(6)
 	public void testRegisterMemberWithEmptyRepeatPassword() {
-		re.startTest("testRegisterMemberWithEmptyRepeatPassword");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -126,15 +106,12 @@ public class RegistrationTests {
 		//registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(REGISTRATION_UNABLE_TO_COMPLETE, registrationPO.getCustomerErrors());
 	}
 
 	@Test
 	@Order(7)
 	public void testRegisterWithPasswordMismatch() {
-		re.startTest("testRegisterWithPasswordMismatch");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -146,15 +123,12 @@ public class RegistrationTests {
 		registrationPO.setRepeatPassword(INCORRECT_PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(REGISTRATION_BOTH_PASSWORD_MUST_MATCH, registrationPO.getCustomerErrors());
 	}
 
 	@Test
 	@Order(8)
 	public void testRegisterMemberWithValidData() {
-		re.startTest("testRegisterMemberWithValidData");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.dismissCookieMessageIfPresent();
@@ -168,15 +142,12 @@ public class RegistrationTests {
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(FIRST_NAME, headerPO.getWelcomeName());
 	}
 
 	@Test
 	@Order(9)
 	public void testRegisterDuplicateMember() {
-		re.startTest("testRegisterDuplicateMember");
-
 		RegistrationPO registrationPO = homePO.goToRegister();
 
 		registrationPO.setFirstName(FIRST_NAME);
@@ -188,14 +159,12 @@ public class RegistrationTests {
 		registrationPO.setRepeatPassword(PASSWORD);
 		registrationPO.createAccount();
 
-		re.check(driver, "check");
-		re.capTest();
+		Assertions.assertEquals(REGISTRATION_USER_NAME_ALREADY_EXISTS, registrationPO.getCustomerErrors());
 	}
 
 	@AfterEach
 	void afterEach() {
 		homePO.quitDriver();
-		re.cap();
 	}
 
 }

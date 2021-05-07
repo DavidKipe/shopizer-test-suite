@@ -15,7 +15,7 @@ import static data.ExpectedData.*;
 import static data.InputData.ITEM_NAME_1;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ItemsTests {
+public class C_ItemsTests {
 
 	HomePO homePO;
 

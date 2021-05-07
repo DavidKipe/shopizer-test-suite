@@ -9,7 +9,7 @@ import static data.ExpectedData.*;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class SubmitOrderTests {
+public class F_SubmitOrderTests {
 
 	HomePO homePO;
 	HeaderPO headerPO;

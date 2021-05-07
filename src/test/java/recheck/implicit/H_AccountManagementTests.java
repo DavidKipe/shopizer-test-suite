@@ -11,7 +11,7 @@ import pageobject.LoginPO;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AccountManagementTests {
+public class H_AccountManagementTests {
 
 	private WebDriver driver;
 

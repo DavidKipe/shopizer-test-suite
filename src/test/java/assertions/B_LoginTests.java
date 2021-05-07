@@ -1,26 +1,27 @@
-package recheck.implicit;
+package assertions;
 
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import pageobject.HeaderPO;
 import pageobject.HomePO;
 import pageobject.LoginPO;
 
+import static data.ExpectedData.LOGIN_ERR_FAILED;
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class LoginTests {
-
-	private WebDriver driver;
+public class B_LoginTests {
 
 	HomePO homePO;
+	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
-
 		homePO = new HomePO(driver);
+		headerPO = new HeaderPO(driver);
 	}
 
 	@Test
@@ -32,7 +33,7 @@ public class LoginTests {
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
 
-		loginPO.waitForLoadingOverlay();
+		Assertions.assertEquals(LOGIN_ERR_FAILED, loginPO.getLoginError());
 	}
 
 	@Test
@@ -44,7 +45,7 @@ public class LoginTests {
 		loginPO.setPassword(INCORRECT_PASSWORD);
 		loginPO.login();
 
-		loginPO.waitForLoadingOverlay();
+		Assertions.assertEquals(LOGIN_ERR_FAILED, loginPO.getLoginError());
 	}
 
 	@Test
@@ -55,6 +56,8 @@ public class LoginTests {
 		//loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
+
+		Assertions.assertEquals(LOGIN_ERR_FAILED, loginPO.getLoginError());
 	}
 
 	@Test
@@ -65,6 +68,8 @@ public class LoginTests {
 		loginPO.setEmail(EMAIL);
 		//loginPO.setPassword(PASSWORD);
 		loginPO.login();
+
+		Assertions.assertEquals(LOGIN_ERR_FAILED, loginPO.getLoginError());
 	}
 
 	@Test
@@ -77,6 +82,8 @@ public class LoginTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
+
+		Assertions.assertEquals(FIRST_NAME, headerPO.getWelcomeName());
 	}
 
 	@AfterEach
