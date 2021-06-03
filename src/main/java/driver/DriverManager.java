@@ -17,7 +17,7 @@ public class DriverManager {
 	// parameters //
 	public static final int TIMEOUT_SECS = 0;                                   // implicit waiting timeout in seconds for Selenium
 	public static final String DRIVER_FOLDER_NAME = "/home/david/.webdriver/";  // local folder of the web drivers
-	public static final boolean HEADLESS = false;                                // headless or not
+	public static final boolean HEADLESS = true;                                // headless or not
 
 
 	public static final String CHROME_DRIVER_UNIX = "chromedriver";

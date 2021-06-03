@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
 
+import static utils.Utils.getElemText;
+
 public class RegistrationPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//input[@id='firstName']")
@@ -80,7 +82,7 @@ public class RegistrationPO extends FooterNavigationPO {
 	}
 
 	public String getCustomerErrors() {
-		return customerErrorsDivElem.getText();
+		return getElemText(customerErrorsDivElem);
 	}
 
 }

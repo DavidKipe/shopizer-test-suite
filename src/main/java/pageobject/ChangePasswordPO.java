@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import static utils.Utils.getElemText;
+
 public class ChangePasswordPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//input[@id='currentPassword']")
@@ -56,15 +58,15 @@ public class ChangePasswordPO extends FooterNavigationPO {
 	}
 
 	public String getPasswordError() {
-		return passwordErrorElem.getText();
+		return getElemText(passwordErrorElem);
 	}
 
 	public String getFormError() {
-		return formErrorElem.getText();
+		return getElemText(formErrorElem);
 	}
 
 	public String getStoreSuccessMessage() {
-		return storeSuccessMessageElem.getText();
+		return getElemText(storeSuccessMessageElem);
 	}
 
 }

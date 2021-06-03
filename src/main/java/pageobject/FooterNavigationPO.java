@@ -1,11 +1,11 @@
 package pageobject;
 
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.Utils;
 
 public class FooterNavigationPO extends ShopizerPO {
 
@@ -47,11 +47,7 @@ public class FooterNavigationPO extends ShopizerPO {
 
 	void clickOn(WebElement linkElem) {
 		wait.until(ExpectedConditions.visibilityOf(linkElem));
-		try {
-			linkElem.click();
-		} catch (StaleElementReferenceException e) {
-			linkElem.click();
-		}
+		Utils.staleRefRetry(linkElem::click);
 	}
 
 }

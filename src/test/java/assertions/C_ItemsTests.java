@@ -31,6 +31,8 @@ public class C_ItemsTests {
 	public void testDisplayItems() {
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
+		storeItemsPO.waitForItemsToBeClickable();
+
 		Assertions.assertEquals(6, storeItemsPO.getItemNamesList().size());
 	}
 

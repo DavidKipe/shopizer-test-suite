@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import utils.Utils;
+
+import static utils.Utils.staleRefRetry;
 
 public class StoreItemDetailPO extends FooterNavigationPO {
 
@@ -24,20 +27,20 @@ public class StoreItemDetailPO extends FooterNavigationPO {
 	}
 
 	public void clickAddToCart() {
-		addToCartBtnElem.click();
+		staleRefRetry(() -> addToCartBtnElem.click());
 	}
 
 	public RateItemPO clickOnWriteReview() {
-		writeReviewBtnElem.click();
+		staleRefRetry(() -> writeReviewBtnElem.click());
 		return new RateItemPO(driver);
 	}
 
 	public String getItemTitleName() {
-		return itemTitleNameH1Elem.getText();
+		return Utils.getElemText(itemTitleNameH1Elem);
 	}
 
 	public String getItemPrice() {
-		return itemPriceSpanElem.getText();
+		return Utils.getElemText(itemPriceSpanElem);
 	}
 
 }

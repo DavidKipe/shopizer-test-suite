@@ -1,15 +1,15 @@
 package pageobject;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import utils.Utils;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
 
 public class ShoppingCartPO extends FooterNavigationPO {
 
@@ -60,35 +60,27 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	}
 
 	public List<String> getItemNamesList() {
-		return staleManager(() -> itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
+		return Utils.staleRefRetry(() -> itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
 	}
 
 	public List<String> getItemPricesStringList() {
-		return itemPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
+		return Utils.staleRefRetry(() -> itemPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
 	}
 
 	public List<Double> getItemPricesList() {
-		return itemPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList());
+		return Utils.staleRefRetry(() -> itemPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList()));
 	}
 
 	public List<String> getItemTotalPartialPricesStringList() {
-		return itemTotalPartialPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList());
+		return Utils.staleRefRetry(() ->itemTotalPartialPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
 	}
 
 	public List<Double> getItemTotalPartialPricesList() {
-		return staleManager(() -> itemTotalPartialPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList()));
+		return Utils.staleRefRetry(() -> itemTotalPartialPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList()));
 	}
 
 	public double getTotalPrice() {
-		return Double.parseDouble(totalPriceSpanElem.getText().substring(1));
-	}
-
-	private <R> R staleManager(Supplier<R> supplier) {
-		try {
-			return supplier.get();
-		} catch (StaleElementReferenceException e) {
-			return supplier.get();
-		}
+		return Utils.staleRefRetry(() -> Double.parseDouble(totalPriceSpanElem.getText().substring(1)));
 	}
 
 }

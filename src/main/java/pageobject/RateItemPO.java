@@ -6,6 +6,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import static utils.Utils.getElemText;
+import static utils.Utils.staleRefRetry;
+
 public class RateItemPO extends FooterNavigationPO {
 
 	public enum RatingStars {
@@ -105,19 +108,19 @@ public class RateItemPO extends FooterNavigationPO {
 	}
 
 	public void clickOnSubmit() {
-		submitBtnElem.click();
+		staleRefRetry(() -> submitBtnElem.click());
 	}
 
 	public String getReviewError() {
-		return reviewErrorElem.getText();
+		return getElemText(reviewErrorElem);
 	}
 
 	public String getStoreSuccessMessage() {
-		return storeSuccessMessageElem.getText();
+		return getElemText(storeSuccessMessageElem);
 	}
 
 	public String getJustInsertedReviewOpinion() {
-		return justInsertedReviewOpinionElem.getText();
+		return getElemText(justInsertedReviewOpinionElem);
 	}
 
 }

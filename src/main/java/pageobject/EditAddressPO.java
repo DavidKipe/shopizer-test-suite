@@ -7,6 +7,9 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import static utils.Utils.getElemValue;
+import static utils.Utils.staleRefRetry;
+
 public class EditAddressPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//input[@id='firstName']")
@@ -60,36 +63,36 @@ public class EditAddressPO extends FooterNavigationPO {
 	}
 
 	public String getFirstName() {
-		return firstNameInputElem.getAttribute("value");
+		return getElemValue(firstNameInputElem);
 	}
 
 	public String getLastName() {
-		return lastNameInputElem.getAttribute("value");
+		return getElemValue(lastNameInputElem);
 	}
 
 	public String getAddress() {
-		return streetAddressInputElem.getAttribute("value");
+		return getElemValue(streetAddressInputElem);
 	}
 
 	public String getCity() {
-		return cityInputElem.getAttribute("value");
+		return getElemValue(cityInputElem);
 	}
 
 	public String getCountry() {
 		Select countrySelect = new Select(countryInputElem);
-		return countrySelect.getFirstSelectedOption().getText();
+		return staleRefRetry(() -> countrySelect.getFirstSelectedOption().getText());
 	}
 
 	public String getStateProv() {
-		return stateProvInputElem.getAttribute("value");
+		return getElemValue(stateProvInputElem);
 	}
 
 	public String getPostalCode() {
-		return postalCodeInputElem.getAttribute("value");
+		return getElemValue(postalCodeInputElem);
 	}
 
 	public String getPhoneNumber() {
-		return phoneNumberInputElem.getAttribute("value");
+		return getElemValue(phoneNumberInputElem);
 	}
 
 }

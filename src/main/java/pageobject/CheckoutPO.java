@@ -8,6 +8,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import static utils.Utils.*;
+
 public class CheckoutPO extends FooterNavigationPO {
 
 	@FindBy(how = How.XPATH, xpath = "//input[@id='customer.firstName']")
@@ -135,24 +137,24 @@ public class CheckoutPO extends FooterNavigationPO {
 	}
 
 	public String getBillingFirstName() {
-		return billingFirstNameInputElem.getAttribute("value");
+		return getElemValue(billingFirstNameInputElem);
 	}
 
 	public String getBillingLastName() {
-		return billingLastNameInputElem.getAttribute("value");
+		return getElemValue(billingLastNameInputElem);
 	}
 
 	public String getBillingCountry() {
 		Select countrySelect = new Select(billingCountryInputElem);
-		return countrySelect.getFirstSelectedOption().getText();
+		return staleRefRetry(() -> countrySelect.getFirstSelectedOption().getText());
 	}
 
 	public String getBillingStateProvince() {
-		return billingStateProvinceInputElem.getAttribute("value");
+		return getElemValue(billingStateProvinceInputElem);
 	}
 
 	public String getBillingEmail() {
-		return billingEmailInputElem.getAttribute("value");
+		return getElemValue(billingEmailInputElem);
 	}
 
 	public void setStorePickUp() {
@@ -231,24 +233,21 @@ public class CheckoutPO extends FooterNavigationPO {
 	}
 
 	public String getFormMessage() {
-		return formMessageElem.getText();
+		return getElemText(formMessageElem);
 	}
 
 	public double getTotalPrice() {
-		try { // This try-catch is needed because this element may be refreshed by clicking the radio button "store pick up"
-			wait.until(ExpectedConditions.visibilityOf(totalPriceElem));
-		} catch (StaleElementReferenceException e) {
-			wait.until(ExpectedConditions.visibilityOf(totalPriceElem));
-		}
+		// This try-catch is needed because this element may be refreshed by clicking the radio button "store pick up"
+		staleRefRetry(() -> wait.until(ExpectedConditions.visibilityOf(totalPriceElem)));
 		return Double.parseDouble(totalPriceElem.getText().substring(1));
 	}
 
 	public boolean isSubmitOrderButtonEnable() {
-		return submitOrderBtnElem.isEnabled();
+		return staleRefRetry(() -> submitOrderBtnElem.isEnabled());
 	}
 
 	public String getCheckoutError() {
-		return checkoutErrorElem.getText();
+		return getElemText(checkoutErrorElem);
 	}
 
 	public void waitForAccountPasswordInput() {

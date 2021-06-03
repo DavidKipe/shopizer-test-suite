@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static utils.Utils.getElemText;
+
 public class HeaderPO extends ShopizerPO {
 
 	@FindBy(how = How.XPATH, xpath = "//body/nav[1]/div[1]/ul[2]/li[3]/a[1]")
@@ -38,7 +40,7 @@ public class HeaderPO extends ShopizerPO {
 	}
 
 	public String getMyAccountMessage() {
-		return myAccountSpanElem.getText();
+		return getElemText(myAccountSpanElem);
 	}
 
 }
