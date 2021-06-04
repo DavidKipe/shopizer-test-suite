@@ -162,25 +162,27 @@ public class CheckoutPO extends FooterNavigationPO {
 		// StaleElementReference exception is thrown if not properly waiting for the element
 		// Selenium waits do not seem wotk correctly here, so I forced waiting with Thread.sleep
 		// and retried every tot milliseconds
-		int maxAttempts = 100;
-		int millisecondsWait = 20;
-		StaleElementReferenceException staleElementRefExc = new StaleElementReferenceException("null");
-		int i;
-		for (i = 0; i < maxAttempts; i++)
-			try {
-				storePickUpRadioInputElem.click();
-				break;
-			} catch (StaleElementReferenceException e) {
-				//System.out.println("Stale exception!!! " + i);
-				staleElementRefExc = e;
-				try {
-					Thread.sleep(millisecondsWait);
-				} catch (InterruptedException interruptedException) {
-					interruptedException.printStackTrace();
-				}
-			}
-		if (i == maxAttempts)
-			throw staleElementRefExc;
+//		int maxAttempts = 100;
+//		int millisecondsWait = 20;
+//		StaleElementReferenceException staleElementRefExc = new StaleElementReferenceException("null");
+//		int i;
+//		for (i = 0; i < maxAttempts; i++)
+//			try {
+//				storePickUpRadioInputElem.click();
+//				break;
+//			} catch (StaleElementReferenceException e) {
+//				//System.out.println("Stale exception!!! " + i);
+//				staleElementRefExc = e;
+//				try {
+//					Thread.sleep(millisecondsWait);
+//				} catch (InterruptedException interruptedException) {
+//					interruptedException.printStackTrace();
+//				}
+//			}
+//		if (i == maxAttempts)
+//			throw staleElementRefExc;
+
+		staleRefRetry(() -> storePickUpRadioInputElem.click(), 100, 20);
 	}
 
 	public void clickOnCheckShipToADifferentAddress() {
@@ -238,7 +240,7 @@ public class CheckoutPO extends FooterNavigationPO {
 
 	public double getTotalPrice() {
 		// This try-catch is needed because this element may be refreshed by clicking the radio button "store pick up"
-		staleRefRetry(() -> wait.until(ExpectedConditions.visibilityOf(totalPriceElem)));
+		staleRefRetry(() -> wait.until(ExpectedConditions.visibilityOf(totalPriceElem)), 100, 20);
 		return Double.parseDouble(totalPriceElem.getText().substring(1));
 	}
 

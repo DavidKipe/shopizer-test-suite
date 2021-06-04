@@ -35,6 +35,9 @@ public class D_ShoppingCartTests {
 		storeItemDetailPO.clickAddToCart();
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 
+		shoppingCartPO.waitPageToBeReady();
+		shoppingCartPO.pageRefresh();
+
 		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE_STR, shoppingCartPO.getItemPricesStringList().get(0));
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE, shoppingCartPO.getTotalPrice());
@@ -52,6 +55,8 @@ public class D_ShoppingCartTests {
 		}
 
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
+
+		shoppingCartPO.waitPageToBeReady();
 
 		HashSet<String> itemNamesSet = new HashSet<>(shoppingCartPO.getItemNamesList());
 		for (String itemName : ITEM_NAMES)
@@ -72,6 +77,8 @@ public class D_ShoppingCartTests {
 		shoppingCartPO.setQuantityForItem(ITEM_NAME_1, 2);
 		shoppingCartPO.clickOnRecalculate();
 
+		shoppingCartPO.waitPageToBeReady();
+
 		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE * 2, shoppingCartPO.getItemTotalPartialPricesList().get(0));
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE * 2, shoppingCartPO.getTotalPrice());
@@ -90,6 +97,8 @@ public class D_ShoppingCartTests {
 
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.removeItem("Vintage exotik carry bag");
+
+		shoppingCartPO.waitPageToBeReady();
 
 		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
 		Assertions.assertEquals(1, shoppingCartPO.getItemNamesList().size());

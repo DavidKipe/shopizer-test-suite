@@ -1,6 +1,7 @@
 package pageobject;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,14 +24,9 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	protected final String itemQuantityInputPart = "td[2]/input";
 	protected final String removeItemPart = "td[5]//a";
 
-	@FindBy(how = How.XPATH, xpath = "//tbody/tr/td[1]/div[1]/div[2]/span[1]/strong[1]")
-	List<WebElement> itemNamesElemList;
-
-	@FindBy(how = How.XPATH, xpath = "//body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr/td[3]/strong[1]")
-	List<WebElement> itemPricesElemList;
-
-	@FindBy(how = How.XPATH, xpath = "//body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr/td[4]/strong[1]")
-	List<WebElement> itemTotalPartialPricesElemList;
+	String itemNameElemListXpath = "//tbody/tr/td[1]/div[1]/div[2]/span[1]/strong[1]";
+	String itemPricesElemListXpath = "//body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr/td[3]/strong[1]";
+	String itemTotalPartialPricesElemListXpath = "//body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr/td[4]/strong[1]";
 
 	@FindBy(how = How.XPATH, xpath = "//tbody/tr[2]/td[1]/span[1]")
 	WebElement totalPriceSpanElem;
@@ -60,22 +56,27 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	}
 
 	public List<String> getItemNamesList() {
+		List<WebElement> itemNamesElemList = driver.findElements(By.xpath(itemNameElemListXpath));
 		return Utils.staleRefRetry(() -> itemNamesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
 	}
 
 	public List<String> getItemPricesStringList() {
+		List<WebElement> itemPricesElemList = driver.findElements(By.xpath(itemPricesElemListXpath));
 		return Utils.staleRefRetry(() -> itemPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
 	}
 
 	public List<Double> getItemPricesList() {
+		List<WebElement> itemPricesElemList = driver.findElements(By.xpath(itemPricesElemListXpath));
 		return Utils.staleRefRetry(() -> itemPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList()));
 	}
 
 	public List<String> getItemTotalPartialPricesStringList() {
-		return Utils.staleRefRetry(() ->itemTotalPartialPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
+		List<WebElement> itemTotalPartialPricesElemList = driver.findElements(By.xpath(itemTotalPartialPricesElemListXpath));
+		return Utils.staleRefRetry(() -> itemTotalPartialPricesElemList.stream().map(WebElement::getText).collect(Collectors.toList()));
 	}
 
 	public List<Double> getItemTotalPartialPricesList() {
+		List<WebElement> itemTotalPartialPricesElemList = driver.findElements(By.xpath(itemTotalPartialPricesElemListXpath));
 		return Utils.staleRefRetry(() -> itemTotalPartialPricesElemList.stream().map(itemPriceElem -> Double.parseDouble(itemPriceElem.getText().substring(1))).collect(Collectors.toList()));
 	}
 

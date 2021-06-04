@@ -45,7 +45,14 @@ public class ShopizerPO extends PageObject {
 			}
 		} catch (NoSuchElementException ignored) {
 		}
+	}
 
+	public void waitPageToBeReady() {
+		wait.until((driver) -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
+	}
+
+	public void pageRefresh() {
+		driver.navigate().refresh();
 	}
 
 }
