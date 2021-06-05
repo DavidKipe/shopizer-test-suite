@@ -46,6 +46,8 @@ public class D_ShoppingCartTests {
 		storeItemDetailPO.clickAddToCart();
 		headerPO.goToCheckout();
 
+		headerPO.waitPageToBeReady();
+
 		re.check(driver, "check");
 		re.capTest();
 	}
@@ -65,6 +67,8 @@ public class D_ShoppingCartTests {
 
 		headerPO.goToCheckout();
 
+		headerPO.waitPageToBeReady();
+
 		re.check(driver, "check");
 		re.capTest();
 	}
@@ -81,6 +85,10 @@ public class D_ShoppingCartTests {
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.setQuantityForItem(ITEM_NAME_1, 2);
 		shoppingCartPO.clickOnRecalculate();
+
+		headerPO.waitPageToBeReady();
+		headerPO.pageRefresh();
+		headerPO.waitPageToBeReady();
 
 		re.check(driver, "check");
 		re.capTest();
@@ -101,6 +109,8 @@ public class D_ShoppingCartTests {
 
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.removeItem("Vintage exotik carry bag");
+
+		headerPO.waitPageToBeReady();
 
 		re.check(driver, "check");
 		re.capTest();

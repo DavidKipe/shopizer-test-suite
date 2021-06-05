@@ -241,7 +241,7 @@ public class CheckoutPO extends FooterNavigationPO {
 	public double getTotalPrice() {
 		// This try-catch is needed because this element may be refreshed by clicking the radio button "store pick up"
 		staleRefRetry(() -> wait.until(ExpectedConditions.visibilityOf(totalPriceElem)), 100, 20);
-		return Double.parseDouble(totalPriceElem.getText().substring(1));
+		return staleRefRetry(() -> Double.parseDouble(totalPriceElem.getText().substring(1)));
 	}
 
 	public boolean isSubmitOrderButtonEnable() {

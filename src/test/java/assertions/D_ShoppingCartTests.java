@@ -36,7 +36,6 @@ public class D_ShoppingCartTests {
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 
 		shoppingCartPO.waitPageToBeReady();
-		shoppingCartPO.pageRefresh();
 
 		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
 		Assertions.assertEquals(ITEMS_ITEM_1_PRICE_STR, shoppingCartPO.getItemPricesStringList().get(0));
@@ -77,6 +76,8 @@ public class D_ShoppingCartTests {
 		shoppingCartPO.setQuantityForItem(ITEM_NAME_1, 2);
 		shoppingCartPO.clickOnRecalculate();
 
+		shoppingCartPO.waitPageToBeReady();
+		shoppingCartPO.pageRefresh();
 		shoppingCartPO.waitPageToBeReady();
 
 		Assertions.assertEquals(ITEM_NAME_1, shoppingCartPO.getItemNamesList().get(0));
