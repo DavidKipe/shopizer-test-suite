@@ -160,7 +160,7 @@ public class CheckoutPO extends FooterNavigationPO {
 	public void setStorePickUp() {
 		// Since the store pick up radio button appears after giving value to postal code input
 		// StaleElementReference exception is thrown if not properly waiting for the element
-		// Selenium waits do not seem wotk correctly here, so I forced waiting with Thread.sleep
+		// Selenium waits do not seem work correctly here, so I forced waiting with Thread.sleep
 		// and retried every tot milliseconds
 //		int maxAttempts = 100;
 //		int millisecondsWait = 20;

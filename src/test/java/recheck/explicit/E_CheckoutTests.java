@@ -84,6 +84,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.setStorePickUp();
+		checkoutPO.setStorePickUp(); // sometimes this action has no effect on the first attempt, repeating it a second time will ensure that the action is performed
 
 		checkoutPO.waitForLoadingOverlay();
 
