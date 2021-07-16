@@ -47,7 +47,7 @@ public class ShoppingCartPO extends FooterNavigationPO {
 	}
 
 	public void clickOnRecalculate() {
-		recalculateBtnElem.click();
+		staleRefRetry(() -> recalculateBtnElem.click());
 	}
 
 	public CheckoutPO clickProceedToCheckout() {
