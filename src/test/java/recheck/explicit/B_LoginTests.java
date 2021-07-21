@@ -107,6 +107,9 @@ public class B_LoginTests {
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
 
+		loginPO.waitPageToBeReady();
+		loginPO.waitForLoadingOverlay();
+
 		re.check(driver, "check");
 		re.capTest();
 	}

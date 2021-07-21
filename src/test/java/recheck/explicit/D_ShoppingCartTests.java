@@ -84,11 +84,15 @@ public class D_ShoppingCartTests {
 		storeItemDetailPO.clickAddToCart();
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.setQuantityForItem(ITEM_NAME_1, 2);
-		shoppingCartPO.clickOnRecalculate();
 
-		headerPO.waitPageToBeReady();
-		headerPO.pageRefresh();
-		headerPO.waitPageToBeReady();
+		shoppingCartPO.clickOnRecalculate();
+		shoppingCartPO.waitPageToBeReady();
+
+		shoppingCartPO.clickOnRecalculate(); // sometimes this action has no effect on the first attempt, repeating it a second time will ensure that the action is performed
+		shoppingCartPO.waitPageToBeReady();
+
+		shoppingCartPO.pageRefresh();
+		shoppingCartPO.waitPageToBeReady();
 
 		re.check(driver, "check");
 		re.capTest();
