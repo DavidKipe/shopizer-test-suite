@@ -43,6 +43,8 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		OrderConfirmationPO orderConfirmationPO = checkoutPO.clickSubmitOrder();
 
+		checkoutPO.waitForLoadingOverlay(); // for more stability
+
 		Assertions.assertEquals(ORDER_CONFIRMATION_TITLE_OK, orderConfirmationPO.getConfirmationTitle());
 		Assertions.assertTrue(orderConfirmationPO.getOrderIdMessage().matches(ORDER_CONFIRMATION_MSG_ID_REGEX));
 	}
@@ -68,6 +70,8 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
 
+		checkoutPO.waitForLoadingOverlay();
+
 		Assertions.assertEquals(CHECKOUT_ERROR_GENERIC, checkoutPO.getCheckoutError());
 	}
 
@@ -92,6 +96,8 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		OrderConfirmationPO orderConfirmationPO = checkoutPO.clickSubmitOrder();
+
+		checkoutPO.waitForLoadingOverlay();
 
 		Assertions.assertEquals(ORDER_CONFIRMATION_TITLE_OK, orderConfirmationPO.getConfirmationTitle());
 		Assertions.assertTrue(orderConfirmationPO.getOrderIdMessage().matches(ORDER_CONFIRMATION_MSG_ID_REGEX));

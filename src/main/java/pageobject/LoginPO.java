@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.Utils;
 
 public class LoginPO extends FooterNavigationPO {
 
@@ -35,7 +36,7 @@ public class LoginPO extends FooterNavigationPO {
 	}
 
 	public MyAccountPO login() {
-		signInBtnElem.click();
+		Utils.staleRefRetry(signInBtnElem::click);
 		return new MyAccountPO(driver);
 	}
 
