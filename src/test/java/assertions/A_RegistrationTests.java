@@ -59,7 +59,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(4)
+	@Order(3)
 	public void testRegisterMemberWithEmptyEmail() {
 		RegistrationPO registrationPO = homePO.goToRegister();
 
@@ -76,7 +76,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(5)
+	@Order(4)
 	public void testRegisterMemberWithEmptyPassword() {
 		RegistrationPO registrationPO = homePO.goToRegister();
 
@@ -93,7 +93,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(6)
+	@Order(5)
 	public void testRegisterMemberWithEmptyRepeatPassword() {
 		RegistrationPO registrationPO = homePO.goToRegister();
 
@@ -110,7 +110,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(7)
+	@Order(6)
 	public void testRegisterWithPasswordMismatch() {
 		RegistrationPO registrationPO = homePO.goToRegister();
 
@@ -127,7 +127,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(8)
+	@Order(7)
 	public void testRegisterMemberWithValidData() {
 		RegistrationPO registrationPO = homePO.goToRegister();
 
@@ -146,7 +146,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(9)
+	@Order(8)
 	public void testRegisterDuplicateMember() {
 		RegistrationPO registrationPO = homePO.goToRegister();
 

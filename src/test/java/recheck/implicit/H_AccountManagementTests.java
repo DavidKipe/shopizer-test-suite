@@ -136,6 +136,9 @@ public class H_AccountManagementTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(NEW_PASSWORD);
 		loginPO.login();
+
+		loginPO.waitPageToBeReady();
+		loginPO.waitForLoadingOverlay();
 	}
 
 	@AfterEach

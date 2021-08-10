@@ -454,7 +454,6 @@ public class E_CheckoutTests {
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
 
-		// raises StaleElementReferenceException if not managed, we're using an element after its refresh (successfully login makes a page refresh)
 		StoreItemsPO storeItemsPO = homePO.goToHandbags();
 
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);

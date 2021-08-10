@@ -77,6 +77,9 @@ public class B_LoginTests {
 		loginPO.setEmail(EMAIL);
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
+
+		loginPO.waitPageToBeReady();
+		loginPO.waitForLoadingOverlay();
 	}
 
 	@AfterEach

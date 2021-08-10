@@ -44,6 +44,8 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
+
+		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -66,6 +68,8 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingEmail(EMAIL); // this is the registration email, it is already used
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
+
+		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -89,6 +93,8 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
+
+		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@AfterEach

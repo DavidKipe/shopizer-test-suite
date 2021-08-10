@@ -71,7 +71,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(4)
+	@Order(3)
 	public void testRegisterMemberWithEmptyEmail() {
 		re.startTest("testRegisterMemberWithEmptyEmail");
 
@@ -91,7 +91,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(5)
+	@Order(4)
 	public void testRegisterMemberWithEmptyPassword() {
 		re.startTest("testRegisterMemberWithEmptyPassword");
 
@@ -111,7 +111,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(6)
+	@Order(5)
 	public void testRegisterMemberWithEmptyRepeatPassword() {
 		re.startTest("testRegisterMemberWithEmptyRepeatPassword");
 
@@ -131,7 +131,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(7)
+	@Order(6)
 	public void testRegisterWithPasswordMismatch() {
 		re.startTest("testRegisterWithPasswordMismatch");
 
@@ -151,7 +151,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(8)
+	@Order(7)
 	public void testRegisterMemberWithValidData() {
 		re.startTest("testRegisterMemberWithValidData");
 
@@ -173,7 +173,7 @@ public class A_RegistrationTests {
 	}
 
 	@Test
-	@Order(9)
+	@Order(8)
 	public void testRegisterDuplicateMember() {
 		re.startTest("testRegisterDuplicateMember");
 
