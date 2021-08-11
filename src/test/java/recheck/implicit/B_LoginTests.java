@@ -1,26 +1,36 @@
 package recheck.implicit;
 
+import de.retest.recheck.RecheckOptions;
+import de.retest.recheck.junit.jupiter.RecheckExtension;
+import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.HomePO;
 import pageobject.LoginPO;
 
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(RecheckExtension.class)
 public class B_LoginTests {
 
-	private WebDriver driver;
-
 	HomePO homePO;
+	RecheckDriver recheckDriver;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		homePO = new HomePO(driver);
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				.addIgnore("loading-overlay.filter")
+				.build();
+		recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+
+		homePO = new HomePO(recheckDriver);
 	}
 
 	@Test
@@ -32,7 +42,8 @@ public class B_LoginTests {
 		loginPO.setPassword(PASSWORD);
 		loginPO.login();
 
-		loginPO.waitForLoadingOverlay();
+		//loginPO.waitForLoadingOverlay();  // WARN: recheck implicit throws exception with this custom waiting, we can not use it
+		loginPO.waitPageToBeReady();
 	}
 
 	@Test
@@ -44,7 +55,10 @@ public class B_LoginTests {
 		loginPO.setPassword(INCORRECT_PASSWORD);
 		loginPO.login();
 
-		loginPO.waitForLoadingOverlay();
+		//loginPO.waitForLoadingOverlay();
+		loginPO.waitPageToBeReady();
+
+		loginPO.voidClickOnBody();
 	}
 
 	@Test
@@ -79,7 +93,9 @@ public class B_LoginTests {
 		loginPO.login();
 
 		loginPO.waitPageToBeReady();
-		loginPO.waitForLoadingOverlay();
+		//loginPO.waitForLoadingOverlay();
+
+		loginPO.pageRefresh();
 	}
 
 	@AfterEach

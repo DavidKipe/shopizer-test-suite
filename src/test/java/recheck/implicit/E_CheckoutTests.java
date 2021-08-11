@@ -1,8 +1,11 @@
 package recheck.implicit;
 
+import de.retest.recheck.RecheckOptions;
+import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.*;
 
 import static data.InputData.*;
@@ -10,18 +13,24 @@ import static data.InputData.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class E_CheckoutTests {
 
-	private WebDriver driver;
-
 	HomePO homePO;
 	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		homePO = new HomePO(driver);
-		headerPO = new HeaderPO(driver);
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				.addIgnore("loading-overlay.filter")
+				.addIgnore("top-and-middle-bar.filter")
+				.addIgnore("scrollup-button.filter")
+				.addIgnore("checkout.filter")
+				.build();
+		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+
+		homePO = new HomePO(recheckDriver);
+		headerPO = new HeaderPO(recheckDriver);
 	}
 
 	@Test
@@ -43,8 +52,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -66,10 +73,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-		checkoutPO.setStorePickUp();
-		checkoutPO.setStorePickUp(); // sometimes this action has no effect on the first attempt, repeating it a second time will ensure that the action is performed
-
-		checkoutPO.waitForLoadingOverlay();
+		checkoutPO.setStorePickUp(); // POTENTIALLY VERY HIGH FLAKINESS! sometimes this action has no effect on the first attempt, repeating it a second time will ensure that the action is performed
 	}
 
 	@Test
@@ -101,8 +105,6 @@ public class E_CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -124,8 +126,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -147,8 +147,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -170,8 +168,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -193,8 +189,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -216,8 +210,6 @@ public class E_CheckoutTests {
 		//checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -239,8 +231,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		//checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -262,8 +252,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		//checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -295,8 +283,6 @@ public class E_CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -328,8 +314,6 @@ public class E_CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -361,8 +345,6 @@ public class E_CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -394,8 +376,6 @@ public class E_CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -427,8 +407,6 @@ public class E_CheckoutTests {
 		checkoutPO.setShippingCountry(SHIPPING_COUNTRY);
 		checkoutPO.setShippingStateProvince(SHIPPING_STATE_PROVINCE);
 		//checkoutPO.setShippingPostalCode(SHIPPING_POSTAL_CODE);
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -468,8 +446,6 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickOnCreateAnAccount();
-
-		checkoutPO.waitForAccountPasswordInput();
 	}
 
 	@AfterEach

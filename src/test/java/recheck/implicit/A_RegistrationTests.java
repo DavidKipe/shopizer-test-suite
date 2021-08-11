@@ -1,26 +1,35 @@
 package recheck.implicit;
 
+import de.retest.recheck.RecheckOptions;
+import de.retest.recheck.junit.jupiter.RecheckExtension;
+import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.HomePO;
 import pageobject.RegistrationPO;
 
 import static data.InputData.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(RecheckExtension.class)
 public class A_RegistrationTests {
-
-	private WebDriver driver;
 
 	HomePO homePO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		homePO = new HomePO(driver);
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				.addIgnore("top-and-middle-bar.filter")
+				.build();
+		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+
+		homePO = new HomePO(recheckDriver);
 	}
 
 	@Test

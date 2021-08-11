@@ -1,0 +1,2 @@
+matcher: xpath=html[1]/body[1]/nav[1], attribute=covered
+matcher: xpath=html[1]/body[1]/div[2], attribute=covered

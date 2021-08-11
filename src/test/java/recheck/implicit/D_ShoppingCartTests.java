@@ -1,8 +1,11 @@
 package recheck.implicit;
 
+import de.retest.recheck.RecheckOptions;
+import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.*;
 
 import static data.InputData.ITEM_NAMES;
@@ -11,18 +14,22 @@ import static data.InputData.ITEM_NAME_1;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class D_ShoppingCartTests {
 
-	private WebDriver driver;
-
 	HomePO homePO;
 	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		homePO = new HomePO(driver);
-		headerPO = new HeaderPO(driver);
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				.addIgnore("loading-overlay.filter")
+				.addIgnore("shopping-cart.filter")
+				.build();
+		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+
+		homePO = new HomePO(recheckDriver);
+		headerPO = new HeaderPO(recheckDriver);
 	}
 
 	@Test
@@ -33,8 +40,6 @@ public class D_ShoppingCartTests {
 		StoreItemDetailPO storeItemDetailPO = storeItemsPO.clickOnItemWithName(ITEM_NAME_1);
 		storeItemDetailPO.clickAddToCart();
 		headerPO.goToCheckout();
-
-		headerPO.waitPageToBeReady();
 	}
 
 	@Test
@@ -49,8 +54,6 @@ public class D_ShoppingCartTests {
 		}
 
 		headerPO.goToCheckout();
-
-		headerPO.waitPageToBeReady();
 	}
 
 	@Test
@@ -70,7 +73,6 @@ public class D_ShoppingCartTests {
 		shoppingCartPO.waitPageToBeReady();
 
 		shoppingCartPO.pageRefresh();
-		shoppingCartPO.waitPageToBeReady();
 	}
 
 	@Test
@@ -86,8 +88,6 @@ public class D_ShoppingCartTests {
 
 		ShoppingCartPO shoppingCartPO = headerPO.goToCheckout();
 		shoppingCartPO.removeItem("Vintage exotik carry bag");
-
-		headerPO.waitPageToBeReady();
 	}
 
 	@AfterEach

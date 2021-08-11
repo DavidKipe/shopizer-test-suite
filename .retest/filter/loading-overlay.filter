@@ -1,0 +1,3 @@
+# ignore the opacity of the loading-overlay
+matcher: xpath=html[1]/body[1]/div[6], attribute=opacity
+matcher: xpath=html[1]/body[1]/div[8], attribute=opacity

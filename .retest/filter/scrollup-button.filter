@@ -1,0 +1,1 @@
+matcher: xpath=html[1]/body[1]/a[1], attribute=opacity

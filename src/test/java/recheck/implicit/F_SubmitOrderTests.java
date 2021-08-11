@@ -1,8 +1,11 @@
 package recheck.implicit;
 
+import de.retest.recheck.RecheckOptions;
+import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.*;
 
 import static data.InputData.*;
@@ -10,18 +13,22 @@ import static data.InputData.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class F_SubmitOrderTests {
 
-	private WebDriver driver;
-
 	HomePO homePO;
 	HeaderPO headerPO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		homePO = new HomePO(driver);
-		headerPO = new HeaderPO(driver);
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				.addIgnore("loading-overlay.filter")
+				.addIgnore("top-and-middle-bar.filter")
+				.build();
+		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+
+		homePO = new HomePO(recheckDriver);
+		headerPO = new HeaderPO(recheckDriver);
 	}
 
 	@Test
@@ -44,8 +51,6 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -68,8 +73,6 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingEmail(EMAIL); // this is the registration email, it is already used
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@Test
@@ -93,8 +96,6 @@ public class F_SubmitOrderTests {
 		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickSubmitOrder();
-
-		checkoutPO.waitForLoadingOverlay();
 	}
 
 	@AfterEach

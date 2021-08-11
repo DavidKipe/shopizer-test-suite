@@ -13,6 +13,9 @@ public class ShopizerPO extends PageObject {
 	@FindBy(how = How.XPATH, xpath = "//body/div[@class='loadingoverlay']")
 	WebElement loadingOverlayElem;
 
+	@FindBy(how = How.XPATH, xpath = "//body")
+	WebElement bodyElem;
+
 	public ShopizerPO(WebDriver driver) {
 		super(driver);
 		wait = new WebDriverWait(driver, 5);
@@ -53,6 +56,10 @@ public class ShopizerPO extends PageObject {
 
 	public void pageRefresh() {
 		driver.navigate().refresh();
+	}
+
+	public void voidClickOnBody() {
+		bodyElem.click();
 	}
 
 }

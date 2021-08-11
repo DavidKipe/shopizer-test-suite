@@ -1,8 +1,13 @@
 package recheck.implicit;
 
+import de.retest.recheck.RecheckOptions;
+import de.retest.recheck.junit.jupiter.RecheckExtension;
+import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.HomePO;
 import pageobject.StoreItemsPO;
 
@@ -10,18 +15,23 @@ import static data.ExpectedData.ITEMS_COLLECTION_NAME_1;
 import static data.InputData.ITEM_NAME_1;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(RecheckExtension.class)
 public class C_ItemsTests {
-
-	private WebDriver driver;
 
 	HomePO homePO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		homePO = new HomePO(driver);
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+				.addIgnore("loading-overlay.filter")
+				.addIgnore("items-sorting.filter")
+				.build();
+		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+
+		homePO = new HomePO(recheckDriver);
 	}
 
 	@Test
@@ -29,7 +39,10 @@ public class C_ItemsTests {
 	public void testDisplayItems() {
 		homePO.goToHandbags();
 
-		homePO.waitForLoadingOverlay();
+		//homePO.waitForLoadingOverlay();
+		homePO.waitPageToBeReady();
+
+		homePO.voidClickOnBody();
 	}
 
 	@Test
@@ -49,6 +62,8 @@ public class C_ItemsTests {
 
 		storeItemsPO.waitForItemsToBeClickable();
 		storeItemsPO.waitForSortTransitions();
+
+		storeItemsPO.voidClickOnBody();
 	}
 
 	@Test
@@ -59,6 +74,8 @@ public class C_ItemsTests {
 		storeItemsPO.sortByName();
 
 		storeItemsPO.waitForSortTransitions();
+
+		storeItemsPO.voidClickOnBody();
 	}
 
 	@Test
@@ -69,6 +86,8 @@ public class C_ItemsTests {
 		storeItemsPO.sortByPrice();
 
 		storeItemsPO.waitForSortTransitions();
+
+		storeItemsPO.voidClickOnBody();
 	}
 
 	@AfterEach

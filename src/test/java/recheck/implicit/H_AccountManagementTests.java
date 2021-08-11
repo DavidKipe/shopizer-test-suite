@@ -1,8 +1,11 @@
 package recheck.implicit;
 
+import de.retest.recheck.RecheckOptions;
+import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.ChangePasswordPO;
 import pageobject.EditAddressPO;
 import pageobject.HomePO;
@@ -13,16 +16,20 @@ import static data.InputData.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class H_AccountManagementTests {
 
-	private WebDriver driver;
-
 	HomePO homePO;
 
 	@BeforeEach
 	public void beforeEach() {
-		driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
+		WebDriver driver = DriverManager.getNewDriverInstance(DriverManager.Browser.CHROME);
 		driver.get("http://localhost:8080");
 
-		homePO = new HomePO(driver);
+		RecheckOptions recheckOptions = RecheckOptions.builder()
+//				.addIgnore("loading-overlay.filter")
+				.build();
+		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+
+
+		homePO = new HomePO(recheckDriver);
 	}
 
 	@Test
@@ -138,7 +145,9 @@ public class H_AccountManagementTests {
 		loginPO.login();
 
 		loginPO.waitPageToBeReady();
-		loginPO.waitForLoadingOverlay();
+		//loginPO.waitForLoadingOverlay();
+
+		loginPO.pageRefresh();
 	}
 
 	@AfterEach
