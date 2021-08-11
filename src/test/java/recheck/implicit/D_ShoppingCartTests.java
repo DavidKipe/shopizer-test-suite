@@ -24,6 +24,7 @@ public class D_ShoppingCartTests {
 
 		RecheckOptions recheckOptions = RecheckOptions.builder()
 				.addIgnore("loading-overlay.filter")
+				.addIgnore("top-and-middle-bar.filter")
 				.addIgnore("shopping-cart.filter")
 				.build();
 		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);

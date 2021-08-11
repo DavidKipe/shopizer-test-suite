@@ -28,6 +28,7 @@ public class C_ItemsTests {
 		RecheckOptions recheckOptions = RecheckOptions.builder()
 				.addIgnore("loading-overlay.filter")
 				.addIgnore("items-sorting.filter")
+				.addIgnore("collections-selector.filter")
 				.build();
 		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
 
