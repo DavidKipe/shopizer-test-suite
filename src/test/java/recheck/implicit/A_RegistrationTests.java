@@ -25,7 +25,7 @@ public class A_RegistrationTests {
 		driver.get("http://localhost:8080");
 
 		RecheckOptions recheckOptions = RecheckOptions.builder()
-				.addIgnore("top-and-middle-bar.filter")
+				.addIgnore("flaky-covered-elements.filter")
 				.build();
 		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
 

@@ -23,7 +23,7 @@ public class F_SubmitOrderTests {
 
 		RecheckOptions recheckOptions = RecheckOptions.builder()
 				.addIgnore("loading-overlay.filter")
-				.addIgnore("top-and-middle-bar.filter")
+				.addIgnore("flaky-covered-elements.filter")
 				.build();
 		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
 

@@ -27,7 +27,7 @@ public class E_CheckoutTests {
 
 		RecheckOptions recheckOptions = RecheckOptions.builder()
 				.addIgnore("loading-overlay.filter")
-				.addIgnore("top-and-middle-bar.filter")
+				.addIgnore("flaky-covered-elements.filter")
 				.addIgnore("scrollup-button.filter")
 				.addIgnore("checkout.filter")
 				.build();
