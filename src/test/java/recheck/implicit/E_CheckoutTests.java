@@ -4,7 +4,9 @@ import de.retest.recheck.RecheckOptions;
 import de.retest.web.selenium.RecheckDriver;
 import driver.DriverManager;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import pageobject.*;
 
@@ -15,6 +17,8 @@ public class E_CheckoutTests {
 
 	HomePO homePO;
 	HeaderPO headerPO;
+
+	RecheckDriver recheckDriver;
 
 	@BeforeEach
 	public void beforeEach() {
@@ -27,10 +31,16 @@ public class E_CheckoutTests {
 				.addIgnore("scrollup-button.filter")
 				.addIgnore("checkout.filter")
 				.build();
-		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
+		recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
 
 		homePO = new HomePO(recheckDriver);
 		headerPO = new HeaderPO(recheckDriver);
+	}
+
+	private void setBillingPostalCodeSkippingCheck() {
+		WebElement billingPostalCodeInputElem = recheckDriver.skipCheck().findElement(By.xpath("//input[@id='billingPostalCode']"));
+		billingPostalCodeInputElem.clear();
+		billingPostalCodeInputElem.sendKeys(BILLING_POSTAL_CODE);
 	}
 
 	@Test
@@ -49,7 +59,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -70,7 +80,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.setStorePickUp(); // POTENTIALLY VERY HIGH FLAKINESS! sometimes this action has no effect on the first attempt, repeating it a second time will ensure that the action is performed
@@ -92,7 +102,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
@@ -123,7 +133,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -144,7 +154,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -165,7 +175,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -186,7 +196,7 @@ public class E_CheckoutTests {
 		//checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -207,7 +217,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		//checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		//setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -228,7 +238,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		//checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -249,7 +259,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		//checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 	}
@@ -270,7 +280,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
@@ -301,7 +311,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
@@ -332,7 +342,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
@@ -363,7 +373,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
@@ -394,7 +404,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 
@@ -442,7 +452,7 @@ public class E_CheckoutTests {
 		checkoutPO.setBillingCity(BILLING_CITY);
 		checkoutPO.setBillingCountry(BILLING_COUNTRY);
 		checkoutPO.setBillingStateProvinceSelect(BILLING_STATE_PROVINCE);
-		checkoutPO.setBillingPostalCode(BILLING_POSTAL_CODE);
+		setBillingPostalCodeSkippingCheck();
 		checkoutPO.setBillingEmail(BILLING_EMAIL);
 		checkoutPO.setBillingPhoneNumber(BILLING_PHONE_NUMBER);
 		checkoutPO.clickOnCreateAnAccount();
