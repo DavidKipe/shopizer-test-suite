@@ -29,6 +29,7 @@ public class C_ItemsTests {
 				.addIgnore("loading-overlay.filter")
 				.addIgnore("items-sorting.filter")
 				.addIgnore("collections-selector.filter")
+				.addIgnore("flaky-covered-elements.filter")
 				.build();
 		RecheckDriver recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
 

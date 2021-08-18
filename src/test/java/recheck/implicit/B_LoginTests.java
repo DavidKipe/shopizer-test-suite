@@ -27,6 +27,7 @@ public class B_LoginTests {
 
 		RecheckOptions recheckOptions = RecheckOptions.builder()
 				.addIgnore("loading-overlay.filter")
+				.addIgnore("flaky-covered-elements.filter")
 				.build();
 		recheckDriver = new RecheckDriver((RemoteWebDriver) driver, recheckOptions);
 
