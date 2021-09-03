@@ -148,6 +148,8 @@ public class H_AccountManagementTests {
 		//loginPO.waitForLoadingOverlay();
 
 		loginPO.pageRefresh();
+
+		//loginPO.voidClickOnBody(); // FIXME
 	}
 
 	@AfterEach

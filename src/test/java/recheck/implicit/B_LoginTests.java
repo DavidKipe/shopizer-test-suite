@@ -45,6 +45,8 @@ public class B_LoginTests {
 
 		//loginPO.waitForLoadingOverlay();  // WARN: recheck implicit throws exception with this custom waiting, we can not use it
 		loginPO.waitPageToBeReady();
+
+		//loginPO.voidClickOnBody(); //FIXME
 	}
 
 	@Test
@@ -97,6 +99,8 @@ public class B_LoginTests {
 		//loginPO.waitForLoadingOverlay();
 
 		loginPO.pageRefresh();
+
+		//loginPO.voidClickOnBody(); //FIXME
 	}
 
 	@AfterEach

@@ -74,6 +74,8 @@ public class D_ShoppingCartTests {
 		shoppingCartPO.waitPageToBeReady();
 
 		shoppingCartPO.pageRefresh();
+
+		//shoppingCartPO.voidClickOnBody(); // FIXME
 	}
 
 	@Test
